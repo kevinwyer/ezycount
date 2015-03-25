@@ -20,7 +20,7 @@ class User extends AppModel {
  */
 	public $validate = array(
 		'id' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -29,7 +29,7 @@ class User extends AppModel {
 			),
 		),
 		'email' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'E-Mail required',
 				//'allowEmpty' => false,
@@ -39,7 +39,7 @@ class User extends AppModel {
 			),
 		),
 		'password' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Password required',
 				//'allowEmpty' => false,
@@ -49,7 +49,7 @@ class User extends AppModel {
 			),
 		),
 		'title' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Title required (Mr. or Mrs.)',
 				//'allowEmpty' => false,
@@ -59,7 +59,7 @@ class User extends AppModel {
 			),
 		),
 		'first_name' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'First name required',
 				//'allowEmpty' => false,
@@ -69,7 +69,7 @@ class User extends AppModel {
 			),
 		),
 		'last_name' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Last name required',
 				//'allowEmpty' => false,
@@ -79,7 +79,7 @@ class User extends AppModel {
 			),
 		),
 		'country' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Country required',
 				//'allowEmpty' => false,
@@ -89,7 +89,7 @@ class User extends AppModel {
 			),
 		),
 		'is_activated' => array(
-			'boolean' => array(
+			'required' => array(
 				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
@@ -99,7 +99,7 @@ class User extends AppModel {
 			),
 		),
 		'is_admin' => array(
-			'boolean' => array(
+			'required' => array(
 				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
@@ -109,7 +109,7 @@ class User extends AppModel {
 			),
 		),
 		'created' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
@@ -119,7 +119,7 @@ class User extends AppModel {
 			),
 		),
 		'language' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Language required',
 				//'allowEmpty' => false,
@@ -129,7 +129,7 @@ class User extends AppModel {
 			),
 		),
 		'disabled' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
@@ -139,7 +139,7 @@ class User extends AppModel {
 			),
 		),
 		'didTour' => array(
-			'notEmpty' => array(
+			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
