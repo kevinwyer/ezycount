@@ -1,23 +1,20 @@
 <div class="users form">
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
+		<legend><?php echo __('Edit User Informations'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('email');
-		echo $this->Form->input('password');
-		echo $this->Form->input('title');
 		echo $this->Form->input('first_name');
 		echo $this->Form->input('last_name');
+		echo $this->Form->input('email');
 		echo $this->Form->input('country');
-		echo $this->Form->input('is_activated');
-		echo $this->Form->input('is_admin');
 		echo $this->Form->input('language');
-		echo $this->Form->input('disabled');
-		echo $this->Form->input('didTour');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<div class="submit">
+         <?php echo $this->Form->submit(__('Submit'), array('name' => 'ok', 'div' => false)); ?>
+         <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel','div' => false)); ?>
+</div>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

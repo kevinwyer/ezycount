@@ -1461,3 +1461,6 @@ Binding(CTRL+SHIFT+F,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.dltk.ui.context.views,,,system)
+
+!ENTRY org.eclipse.equinox.security 1 0 2015-03-25 13:41:19.041
+!MESSAGE New keyring password generated. 

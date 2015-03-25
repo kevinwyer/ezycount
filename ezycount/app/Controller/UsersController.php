@@ -13,7 +13,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator', 'Session');
 
 /**
  * index method
@@ -69,6 +69,12 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			//When you click on cancel
+			if (isset($this->request->data['cancel'])) {
+				$this->Session->setFlash(__('Changes were not saved. User cancelled.'));
+				return $this->redirect( array( 'action' => 'index' ));
+			}
+			//When you click on submit
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
