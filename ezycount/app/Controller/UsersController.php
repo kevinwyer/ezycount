@@ -71,7 +71,6 @@ class UsersController extends AppController {
 		if ($this->request->is(array('post', 'put'))) {
 			//When you click on cancel
 			if (isset($this->request->data['cancel'])) {
-				$this->Session->setFlash(__('Changes were not saved. User cancelled.'));
 				return $this->redirect( array( 'action' => 'index' ));
 			}
 			//When you click on submit

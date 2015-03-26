@@ -1,27 +1,71 @@
 <div class="users form">
-<?php echo $this->Form->create('User'); ?>
-	<fieldset>
-		<legend><?php echo __('Add User'); ?></legend>
-	<?php
-		echo $this->Form->input('email');
-		echo $this->Form->input('password');
-		echo $this->Form->input('title');
-		echo $this->Form->input('first_name');
-		echo $this->Form->input('last_name');
-		echo $this->Form->input('country');
-		echo $this->Form->input('is_activated');
-		echo $this->Form->input('is_admin');
-		echo $this->Form->input('language');
-		echo $this->Form->input('disabled');
-		echo $this->Form->input('didTour');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
 
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-	</ul>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1><?php echo __('Add User'); ?></h1>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="actions">
+				<div class="panel panel-default">
+					<div class="panel-heading">Actions</div>
+						<div class="panel-body">
+							<ul class="nav nav-pills nav-stacked">
+
+																<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;List Users'), array('action' => 'index'), array('escape' => false)); ?></li>
+														</ul>
+						</div>
+					</div>
+				</div>			
+		</div><!-- end col md 3 -->
+		<div class="col-md-9">
+			<?php echo $this->Form->create('User', array('role' => 'form')); ?>
+
+				<div class="form-group">
+					<?php echo $this->Form->input('email', array('class' => 'form-control', 'placeholder' => 'Email'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('password', array('class' => 'form-control', 'placeholder' => 'Password'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('title', array('class' => 'form-control', 'placeholder' => 'Title'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('first_name', array('class' => 'form-control', 'placeholder' => 'First Name'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('last_name', array('class' => 'form-control', 'placeholder' => 'Last Name'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('country', array('class' => 'form-control', 'placeholder' => 'Country'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('is_activated', array('class' => 'form-control', 'placeholder' => 'Is Activated'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('is_admin', array('class' => 'form-control', 'placeholder' => 'Is Admin'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('language', array('class' => 'form-control', 'placeholder' => 'Language'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('disabled', array('class' => 'form-control', 'placeholder' => 'Disabled'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->input('didTour', array('class' => 'form-control', 'placeholder' => 'DidTour'));?>
+				</div>
+				<div class="form-group">
+					<?php echo $this->Form->submit(__('Submit'), array('class' => 'btn btn-default')); ?>
+				</div>
+
+			<?php echo $this->Form->end() ?>
+
+		</div><!-- end col md 12 -->
+	</div><!-- end row -->
 </div>

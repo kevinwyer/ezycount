@@ -18,8 +18,7 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
-App::uses('Controller', 'Controller');
+App::uses ( 'Controller', 'Controller' );
 
 /**
  * Application Controller
@@ -27,9 +26,14 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package app.Controller
+ * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	public $components = array('DebugKit.Toolbar');
+	public $components = array (
+			'DebugKit.Toolbar' 
+	);
+	public function beforeFilter() {
+		$this->layout = 'bootstrap';
+	}
 }
