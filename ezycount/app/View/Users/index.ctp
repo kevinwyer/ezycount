@@ -34,12 +34,8 @@
 						<th><?php echo $this->Paginator->sort('last_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('email'); ?></th>
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
-						<th><?php echo $this->Paginator->sort('is_activated'); ?></th>
-						<th><?php echo $this->Paginator->sort('is_admin'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
-						<th><?php echo $this->Paginator->sort('disabled'); ?></th>
-						<th><?php echo $this->Paginator->sort('didTour'); ?></th>
 						<th class="actions"></th>
 					</tr>
 				</thead>
@@ -51,12 +47,8 @@
 						<td><?php echo h($user['User']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['country']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['is_activated']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['is_admin']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['User']['language']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['disabled']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['didTour']); ?>&nbsp;</td>
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['User']['id']), array('escape' => false)); ?>
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $user['User']['id']), array('escape' => false)); ?>
