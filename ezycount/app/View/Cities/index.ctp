@@ -1,4 +1,24 @@
 <div class="cities index">
+
+<table>
+	<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/cities">
+	<tbody>
+		<tr>
+			<th>
+			<input name="search_city" placeholder="City"/>
+			</th>
+			
+			<th>
+			<input name="search_plz" placeholder="ZIP"/>
+			</th>
+		</tr>
+		<tr>
+			<th><input type="submit" value="Submit"></th>
+		</tr>
+	</tbody>
+	</form>
+</table>
+
 	<h2><?php echo __('Cities'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
@@ -7,11 +27,24 @@
 			<th><?php echo $this->Paginator->sort('country'); ?></th>
 			<th><?php echo $this->Paginator->sort('zip'); ?></th>
 			<th><?php echo $this->Paginator->sort('city'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th class="actions"><?php  echo __('Actions'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ($cities as $city): ?>
+	
+	<?php 
+	
+	// if search fields are empty --> display all
+	//	else 
+	//	   --> only the corresponding fields 
+		   
+	if (!empty($search_city) && !empty($search_plz))
+		echo 'Search_city is not empty';
+	else
+	{
+	
+	
+	foreach ($cities as $city): ?>
 	<tr>
 		<td><?php echo h($city['City']['id']); ?>&nbsp;</td>
 		<td><?php echo h($city['City']['country']); ?>&nbsp;</td>
@@ -23,7 +56,8 @@
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $city['City']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+<?php endforeach; 
+	}?>
 	</tbody>
 	</table>
 	<p>

@@ -1,16 +1,9 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * City Model
- *
- */
+
 class City extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
- */
+	
 	public $validate = array(
 		'country' => array(
 			'required' => array(
