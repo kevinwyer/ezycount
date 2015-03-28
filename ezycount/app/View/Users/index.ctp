@@ -36,7 +36,7 @@
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
-						<th class="actions"></th>
+						<th class="actions">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
