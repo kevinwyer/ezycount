@@ -4,6 +4,7 @@
 	<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/cities">
 	<tbody>
 		<tr>
+			(% for missing letters)
 			<th>
 			<input name="search_city" placeholder="City"/>
 			</th>
@@ -34,30 +35,21 @@
 	
 	<?php 
 	
-	// if search fields are empty --> display all
-	//	else 
-	//	   --> only the corresponding fields 
-		   
-	if (!empty($search_city) && !empty($search_plz))
-		echo 'Search_city is not empty';
-	else
-	{
-	
-	
 	foreach ($cities as $city): ?>
+	
 	<tr>
-		<td><?php echo h($city['City']['id']); ?>&nbsp;</td>
-		<td><?php echo h($city['City']['country']); ?>&nbsp;</td>
-		<td><?php echo h($city['City']['zip']); ?>&nbsp;</td>
-		<td><?php echo h($city['City']['city']); ?>&nbsp;</td>
+		<td><?php echo h($city['ezycount_cities']['id']); ?>&nbsp;</td>
+		<td><?php echo h($city['ezycount_cities']['country']); ?>&nbsp;</td>
+		<td><?php echo h($city['ezycount_cities']['zip']); ?>&nbsp;</td>
+		<td><?php echo h($city['ezycount_cities']['city']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $city['City']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $city['City']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $city['City']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $city['ezycount_cities']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $city['ezycount_cities']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $city['ezycount_cities']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $city['ezycount_cities']['id']))); ?>
 		</td>
 	</tr>
 <?php endforeach; 
-	}?>
+	?>
 	</tbody>
 	</table>
 	<p>
@@ -68,9 +60,9 @@
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->prev('< ' . __('previous '), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ' '));
+		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>

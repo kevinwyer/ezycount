@@ -10,7 +10,7 @@ class CitiesController extends AppController {
 		// check if the search function was used
 		if (isset ( $_POST ["search_city"] ) && isset ( $_POST ["search_plz"] )) {
 			
-			// check if the search fields containing something
+			// check if the search fields are NOT containing something
 			if ($_POST ["search_plz"] == "" && $_POST ["search_city"] == "") {
 				
 				// nothing in the input fields
@@ -31,19 +31,21 @@ class CitiesController extends AppController {
 			$this->displayAll ();
 		}
 	}
+	
 	private function displayAll() {
 		$this->City->recursive = 0;
-		$this->set ( 'cities', $this->Paginator->paginate () );
+
+		$this->set('cities', $this->paginate('City'));
+		
 	}
 	public function search($city = null, $zip = null) {
-
-		$options = array(
-			'conditions' => array(
-				'City.city' => $city
-			)
+		$this->paginate = array (
+				'City' => array (
+						'conditions' => ('where city LIKE "' . $city . '"') 
+				) 
 		);
 		
-		$this->set ( 'cities',  $this->City->find ( 'all', $options ) );
+		$this->set ( 'cities', $this->paginate ( 'City' ) );
 	}
 	
 	public function view($id = null) { // view with search function
