@@ -1,12 +1,10 @@
 <?php
 App::uses ( 'AppController', 'Controller' );
 class UsersController extends AppController {
-	
 	public $components = array (
 			'Paginator',
 			'Session' 
 	);
-	
 	private function searchFieldsUsed() {
 		
 		// check if the search function was used
@@ -19,45 +17,77 @@ class UsersController extends AppController {
 				return null;
 			} else {
 				
-				return array(
+				return array (
 						"name" => $_POST ["search_name"] != "" ? $_POST ["search_name"] : null,
-						"mail" =>  $_POST ["search_email"] != "" ? $_POST ["search_email"] : null);
+						"mail" => $_POST ["search_email"] != "" ? $_POST ["search_email"] : null 
+				);
 			}
 		}
 		return null;
 	}
+	
 	public function index() {
-		$this->User->recursive = 0;
-		
-		// display result of search
-		$searchFieldArray = $this->searchFieldsUsed();
-		
-		if ($searchFieldArray != null) { // array or null
+		// $this->User->recursive = 0;
+		$defaultLimit = 10;
 
+		if (isset ( $_POST ["select_value"] )) {
+				
+			$this->Session->write('session', $_POST ["select_value"]);
+		
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (
-									'where 
-									(first_name LIKE "' . $searchFieldArray['name'] . '")' .
-									'OR'.
-									'(last_name LIKE "' . $searchFieldArray['name'] . '")' .
-									'OR' .
-									'(email LIKE "' . $searchFieldArray['mail'] . '")')
+							'limit' => $_POST ["select_value"]
 					)
 			);
+				
+				
+				
+		}
+		elseif($this->Session->check('session')) {
 			
-		} //else // display all users
-		$this->set('users', $this->paginate('User'));
+			$this->paginate = array (
+					'User' => array (
+							'limit' => $this->Session->read('session')
+					)
+					);
+			
+			//$this->Session->destroy('session');
+					
+		}		
 		
-// 		$this->loadModel("User");
-// 		$query_options = array();
-// 		$query_options["fields"] = array("User.id","companies.user_id");
-// 		$query_options["joins"] = array("table" => "companies",
-// 				"alias" => "companies", 
-// 				"type" => "INNER", 
-// 				"conditions" => array("companies.user_id = User.id",));
-// 		$this->set("Company", $this->User->find('all', array($query_options,'limit' => 10 ,'recursive' => 1)));
+		else {
+			$this->paginate = array (
+					'User' => array (
+							'limit' => $defaultLimit
+					)
+			);
+		}
+		
+		// display result of search
+		$searchFieldArray = $this->searchFieldsUsed ();
+		
+		if ($searchFieldArray != null) {
 			
+			if ($searchFieldArray ['mail'] != null)
+				echo "Search E-Mail " . $_POST ["search_email"] . "<br/>";
+			
+			if ($searchFieldArray ['name'] != null)
+				echo "Search Name " . $_POST ["search_name"] . "<br/>";
+			
+			$this->paginate = array (
+					'User' => array (
+							'conditions' => ('where first_name LIKE "' . $searchFieldArray ['name'] . '"') .
+							'OR' .
+							'(last_name LIKE "' . $searchFieldArray['name'] . '")' .
+							'OR' .
+							'(email LIKE "' . $searchFieldArray['mail'] . '")',
+							'limit' => $defaultLimit,
+					) 
+			);
+		}
+		// else // display all users
+		
+		$this->set ( 'users', $this->paginate ( 'User' ) );
 	}
 	public function view($id = null) {
 		if (! $this->User->exists ( $id )) {

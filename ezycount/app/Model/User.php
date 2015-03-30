@@ -1,163 +1,142 @@
 <?php
-App::uses ( 'AppController', 'Controller' );
-class UsersController extends AppController {
-	public $components = array (
-			'Paginator',
-			'Session' 
+App::uses('AppModel', 'Model');
+
+class User extends AppModel {
+
+
+	public $displayField = 'title';
+	
+	private $selectAll = "SELECT * FROM ezycount_users ";
+
+	
+	public $validate = array(
+		'id' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+			),
+		),
+		'email' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'E-Mail required',
+			),
+		),
+		'password' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Password required',
+			),
+		),
+		'title' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Title required (Mr. or Mrs.)',
+			),
+		),
+		'first_name' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'First name required',
+			),
+		),
+		'last_name' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Last name required',
+			),
+		),
+		'country' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Country required',
+			),
+		),
+		'is_activated' => array(
+			'required' => array(
+				'rule' => array('boolean'),
+				//'message' => 'Your custom message here',
+			),
+		),
+		'is_admin' => array(
+			'required' => array(
+				'rule' => array('boolean'),
+				//'message' => 'Your custom message here',
+			),
+		),
+		'created' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+			),
+		),
+		'language' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Language required',
+			),
+		),
+		'disabled' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+			),
+		),
+		'didTour' => array(
+			'required' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+
+			),
+		),
 	);
-	private function searchFieldsUsed() {
+	
+	
+	// custom paginator
+	public function paginate($conditions, $fields, $order, $limit, $page = 1, $recursive = null, $extra = array()) {
+		$recursive = -1;
 		
-		// check if the search function was used
-		if (isset ( $_POST ["search_name"] ) && isset ( $_POST ["search_email"] )) {
-			
-			// check if the search fields are NOT containing something
-			if ($_POST ["search_email"] == "" && $_POST ["search_name"] == "") {
-				
-				// nothing in the input fields
-				return null;
-			} else {
-				
-				return array (
-						"name" => $_POST ["search_name"] != "" ? $_POST ["search_name"] : null,
-						"mail" => $_POST ["search_email"] != "" ? $_POST ["search_email"] : null 
-				);
-			}
+		$key = null;
+		$column = null;
+	
+		// Mandatory to have
+		$this->useTable = false;
+		$sql = '';
+	
+		$sql .= $this->selectAll ;
+	
+		if (!empty($conditions))
+			$sql .= $conditions;
+		
+		
+		if ($order != null){
+			$key = array_keys($order)[0];
+			$column = substr($key, 5);
+			$sql .= 'ORDER BY ' . $column . ' ' . $order[$key] ;
 		}
-		return null;
+	
+		// Adding LIMIT Clause
+		$sql .=  " limit " . (($page - 1) * $limit) . ', ' . $limit;
+	
+	
+		$results = $this->query($sql);
+	
+	
+		return $results;
 	}
 	
-	public function index() {
-		// $this->User->recursive = 0;
-		$defaultLimit = 10;
-
-		if (isset ( $_POST ["select_value"] )) {
-				
-			$this->Session->write('session', $_POST ["select_value"]);
-		
-			$this->paginate = array (
-					'User' => array (
-							'limit' => $_POST ["select_value"]
-					)
-			);
-				
-				
-				
-		}
-		elseif($this->Session->check('session')) {
-			
-			$this->paginate = array (
-					'User' => array (
-							'limit' => $this->Session->read('session')
-					)
-					);
-			
-			//$this->Session->destroy('session');
-					
-		}		
-		
-		else {
-			$this->paginate = array (
-					'User' => array (
-							'limit' => $defaultLimit
-					)
-			);
-		}
-		
-		// display result of search
-		$searchFieldArray = $this->searchFieldsUsed ();
-		
-		if ($searchFieldArray != null) {
-			
-			if ($searchFieldArray ['mail'] != null)
-				echo "Search E-Mail " . $_POST ["search_email"] . "<br/>";
-			
-			if ($searchFieldArray ['name'] != null)
-				echo "Search Name " . $_POST ["search_name"] . "<br/>";
-			
-			$this->paginate = array (
-					'User' => array (
-							'conditions' => ('where first_name LIKE "' . $searchFieldArray ['name'] . '"') .
-							'OR' .
-							'(last_name LIKE "' . $searchFieldArray['name'] . '")' .
-							'OR' .
-							'(email LIKE "' . $searchFieldArray['mail'] . '")',
-							'limit' => $defaultLimit,
-					) 
-			);
-		}
-		// else // display all users
-		
-		$this->set ( 'users', $this->paginate ( 'User' ) );
-	}
-	public function view($id = null) {
-		if (! $this->User->exists ( $id )) {
-			throw new NotFoundException ( __ ( 'Invalid user' ) );
-		}
-		$options = array (
-				'conditions' => array (
-						'User.' . $this->User->primaryKey => $id 
-				) 
-		);
-		$this->set ( 'user', $this->User->find ( 'first', $options ) );
-	}
-	public function add() {
-		if ($this->request->is ( 'post' )) {
-			$this->User->create ();
-			if ($this->User->save ( $this->request->data )) {
-				$this->Session->setFlash ( __ ( 'The user has been saved.' ) );
-				return $this->redirect ( array (
-						'action' => 'index' 
-				) );
-			} else {
-				$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.' ) );
-			}
-		}
-	}
-	public function edit($id = null) {
-		if (! $this->User->exists ( $id )) {
-			throw new NotFoundException ( __ ( 'Invalid user' ) );
-		}
-		if ($this->request->is ( array (
-				'post',
-				'put' 
-		) )) {
-			// When you click on cancel
-			if (isset ( $this->request->data ['cancel'] )) {
-				return $this->redirect ( array (
-						'action' => 'index' 
-				) );
-			}
-			// When you click on submit
-			if ($this->User->save ( $this->request->data )) {
-				$this->Session->setFlash ( __ ( 'The user has been saved.' ) );
-				return $this->redirect ( array (
-						'action' => 'index' 
-				) );
-			} else {
-				$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.' ) );
-			}
-		} else {
-			$options = array (
-					'conditions' => array (
-							'User.' . $this->User->primaryKey => $id 
-					) 
-			);
-			$this->request->data = $this->User->find ( 'first', $options );
-		}
-	}
-	public function delete($id = null) {
-		$this->User->id = $id;
-		if (! $this->User->exists ()) {
-			throw new NotFoundException ( __ ( 'Invalid user' ) );
-		}
-		$this->request->allowMethod ( 'post', 'delete' );
-		if ($this->User->delete ()) {
-			$this->Session->setFlash ( __ ( 'The user has been deleted.' ) );
-		} else {
-			$this->Session->setFlash ( __ ( 'The user could not be deleted. Please, try again.' ) );
-		}
-		return $this->redirect ( array (
-				'action' => 'index' 
-		) );
+	
+	public function paginateCount($conditions = null, $recursive = 0, $extra = array()) {
+	
+		$sql = '';
+	
+		$sql .= $this->selectAll;
+		if (!empty($conditions))
+			$sql .= $conditions;
+	
+		$this->recursive = $recursive;
+	
+		$results = $this->query($sql);
+	
+		return count($results);
 	}
 }
