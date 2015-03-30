@@ -99,7 +99,7 @@ class User extends AppModel {
 		$column = null;
 	
 		// Mandatory to have
-		$this->useTable = false;
+	//	$this->useTable = false;
 		$sql = '';
 	
 		$sql .= $this->selectAll ;
