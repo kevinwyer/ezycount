@@ -78,7 +78,7 @@
 							<?php foreach($user['ezycount_companies'] as $company): ?>
 								<td><?php echo $company['canton'] ?></td>
 							<?php endforeach; ?>
-						
+							
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>

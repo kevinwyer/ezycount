@@ -1,10 +1,9 @@
 <?php
 App::uses ( 'AppController', 'Controller' );
 class UsersController extends AppController {
-
-	var $name = 'Companies';
-	var $scaffold;
 	
+	var $name = 'Users';
+	var $scaffold;
 	
 	public $components = array (
 			'Paginator',
@@ -54,7 +53,7 @@ class UsersController extends AppController {
 			
 		} //else // display all users
 		$this->set('users', $this->paginate('User'));
-			
+
 	}
 	public function view($id = null) {
 		if (! $this->User->exists ( $id )) {

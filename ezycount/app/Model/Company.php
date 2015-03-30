@@ -1,21 +1,13 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Company Model
- *
- */
-class Company extends AppModel {
 
+class Company extends AppModel {
+	
 	var $name = 'Company';
 	var $belongsTo = 'User';
 
 	public $displayField = 'name';
-
-/**
- * Validation rules
- *
- * @var array
- */
+	
 	public $validate = array(
 		'id' => array(
 			'notEmpty' => array(
