@@ -28,24 +28,10 @@
 		<div class="col-md-9">			
 			<table cellpadding="0" cellspacing="0" class="table table-striped">
 				<tbody>
-				<tr>
-		<th><?php echo __('Id'); ?></th>
-		<td>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</td>
-</tr>
 <tr>
 		<th><?php echo __('Email'); ?></th>
 		<td>
 			<?php echo h($user['User']['email']); ?>
-			&nbsp;
-		</td>
-</tr>
-<tr>
-		<th><?php echo __('Password'); ?></th>
-		<td>
-			<?php echo h($user['User']['password']); ?>
 			&nbsp;
 		</td>
 </tr>

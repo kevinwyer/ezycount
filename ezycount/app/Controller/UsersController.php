@@ -1,6 +1,10 @@
 <?php
 App::uses ( 'AppController', 'Controller' );
 class UsersController extends AppController {
+
+	var $name = 'Companies';
+	var $scaffold;
+	
 	
 	public $components = array (
 			'Paginator',
@@ -28,6 +32,8 @@ class UsersController extends AppController {
 	}
 	public function index() {
 		$this->User->recursive = 0;
+		$users = $this->User->find ( 'all' );
+		$this->set ( 'Users', $users);
 		
 		// display result of search
 		$searchFieldArray = $this->searchFieldsUsed();
@@ -48,15 +54,6 @@ class UsersController extends AppController {
 			
 		} //else // display all users
 		$this->set('users', $this->paginate('User'));
-		
-// 		$this->loadModel("User");
-// 		$query_options = array();
-// 		$query_options["fields"] = array("User.id","companies.user_id");
-// 		$query_options["joins"] = array("table" => "companies",
-// 				"alias" => "companies", 
-// 				"type" => "INNER", 
-// 				"conditions" => array("companies.user_id = User.id",));
-// 		$this->set("Company", $this->User->find('all', array($query_options,'limit' => 10 ,'recursive' => 1)));
 			
 	}
 	public function view($id = null) {

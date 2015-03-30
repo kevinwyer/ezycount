@@ -10,6 +10,10 @@ App::uses('AppController', 'Controller');
  */
 class CompaniesController extends AppController {
 
+
+	var $name = 'Companies';
+	var $scaffold;
+	
 /**
  * Components
  *

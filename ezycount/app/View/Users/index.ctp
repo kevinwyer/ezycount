@@ -60,6 +60,7 @@
 						<th><?php echo $this->Paginator->sort('first_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('last_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('email'); ?></th>
+						<th><?php echo $this->Paginator->sort('canton'); ?></th>
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
@@ -73,6 +74,11 @@
 						<td><?php echo h($user['ezycount_users']['first_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['email']); ?>&nbsp;</td>
+						
+							<?php foreach($user['ezycount_companies'] as $company): ?>
+								<td><?php echo $company['canton'] ?></td>
+							<?php endforeach; ?>
+						
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>

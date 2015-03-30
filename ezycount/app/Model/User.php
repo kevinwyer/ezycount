@@ -1,6 +1,10 @@
 <?php
 App::uses ( 'AppModel', 'Model' );
 class User extends AppModel {
+	
+	var $name = 'User';
+	var $hasMany = 'Company';
+	
 	public $displayField = 'title';
 	
 	private $selectAll = "SELECT * FROM ezycount_users ";
@@ -108,8 +112,6 @@ class User extends AppModel {
 							) 
 					// 'message' => 'Your custom message here',
 										)
-
-					 
 			) 
 	);
 	

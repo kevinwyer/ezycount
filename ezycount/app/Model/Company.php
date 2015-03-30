@@ -6,11 +6,9 @@ App::uses('AppModel', 'Model');
  */
 class Company extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
+	var $name = 'Company';
+	var $belongsTo = 'User';
+
 	public $displayField = 'name';
 
 /**
