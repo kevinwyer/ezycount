@@ -25,8 +25,6 @@
 </table>
 	
 	
-	
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
@@ -60,7 +58,6 @@
 						<th><?php echo $this->Paginator->sort('first_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('last_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('email'); ?></th>
-						
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
@@ -74,9 +71,6 @@
 						<td><?php echo h($user['ezycount_users']['first_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['email']); ?>&nbsp;</td>
-						
-							
-							
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>
@@ -90,10 +84,38 @@
 				</tbody>
 			</table>
 
+			<!-- Pagination -->
+
+<table>
+	<form id="paginateFunction" method="post" action="/ezycount/ezycount/users">
+	<tbody>
+		<tr>
+			
+			<th>
+			Number of results :
+			</th>
+			
+			<th>
+			<select name ="select_value">
+				<option value="5">5</option>
+  <option value="10">10</option>
+  <option value="15">15</option>
+  <option value="20">20</option>
+			</select>			</th>
+		</tr>
+		
+		<tr>
+			<th><input type="submit" value="Submit"></th>
+		</tr>
+	</tbody>
+	</form>
+</table>
+
+
 			<p>
 				<small><?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?></small>
 			</p>
-
+			
 			<?php
 			$params = $this->Paginator->params();
 			if ($params['pageCount'] > 1) {
