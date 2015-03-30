@@ -47,7 +47,17 @@ class UsersController extends AppController {
 			);
 			
 		} //else // display all users
-			$this->set ( 'users', $this->paginate ( 'User' ) );
+		$this->set('users', $this->paginate('User'));
+		
+// 		$this->loadModel("User");
+// 		$query_options = array();
+// 		$query_options["fields"] = array("User.id","companies.user_id");
+// 		$query_options["joins"] = array("table" => "companies",
+// 				"alias" => "companies", 
+// 				"type" => "INNER", 
+// 				"conditions" => array("companies.user_id = User.id",));
+// 		$this->set("Company", $this->User->find('all', array($query_options,'limit' => 10 ,'recursive' => 1)));
+			
 	}
 	public function view($id = null) {
 		if (! $this->User->exists ( $id )) {
