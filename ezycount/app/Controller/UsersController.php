@@ -27,22 +27,22 @@ class UsersController extends AppController {
 		return null;
 	}
 	public function index() {
-	//	$this->User->recursive = 0;
+		$this->User->recursive = 0;
 		
 		// display result of search
 		$searchFieldArray = $this->searchFieldsUsed();
 		
-		if ($searchFieldArray != null) {
+		if ($searchFieldArray != null) { // array or null
 
-			if ($searchFieldArray['mail'] != null)
-				echo "Search E-Mail " . $_POST ["search_email"] . "<br/>";
-			
-			if ($searchFieldArray['name'] != null)
-				echo "Search Name " . $_POST ["search_name"] . "<br/>";
-			
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => ('where first_name LIKE "' . $searchFieldArray['name'] . '"')
+							'conditions' => (
+									'where 
+									(first_name LIKE "' . $searchFieldArray['name'] . '")' .
+									'OR'.
+									'(last_name LIKE "' . $searchFieldArray['name'] . '")' .
+									'OR' .
+									'(email LIKE "' . $searchFieldArray['mail'] . '")')
 					)
 			);
 			

@@ -94,6 +94,9 @@ class User extends AppModel {
 	// custom paginator
 	public function paginate($conditions, $fields, $order, $limit, $page = 1, $recursive = null, $extra = array()) {
 		$recursive = -1;
+		
+		$key = null;
+		$column = null;
 	
 		// Mandatory to have
 		$this->useTable = false;
@@ -103,6 +106,15 @@ class User extends AppModel {
 	
 		if (!empty($conditions))
 			$sql .= $conditions;
+		
+		
+		var_dump($order);
+		
+		if ($order != null){
+			$key = array_keys($order)[0];
+			$column = substr($key, 5);
+			$sql .= 'ORDER BY ' . $column . ' ' . $order[$key] ;
+		}
 	
 		// Adding LIMIT Clause
 		$sql .=  " limit " . (($page - 1) * $limit) . ', ' . $limit;
