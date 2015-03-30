@@ -1,164 +1,257 @@
 <div class="companies view">
-<h2><?php echo __('Company'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1><?php echo __('Company'); ?></h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="actions">
+				<div class="panel panel-default">
+					<div class="panel-heading">Actions</div>
+						<div class="panel-body">
+							<ul class="nav nav-pills nav-stacked">
+									<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-edit"></span>&nbsp&nbsp;Edit Company'), array('action' => 'edit', $company['Company']['id']), array('escape' => false)); ?> </li>
+		<li><?php echo $this->Form->postLink(__('<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete Company'), array('action' => 'delete', $company['Company']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $company['Company']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Companies'), array('action' => 'index'), array('escape' => false)); ?> </li>
+		<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New Company'), array('action' => 'add'), array('escape' => false)); ?> </li>
+		<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-list"></span>&nbsp&nbsp;List Users'), array('controller' => 'users', 'action' => 'index'), array('escape' => false)); ?> </li>
+		<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp;New User'), array('controller' => 'users', 'action' => 'add'), array('escape' => false)); ?> </li>
+							</ul>
+						</div><!-- end body -->
+				</div><!-- end panel -->
+			</div><!-- end actions -->
+		</div><!-- end col md 3 -->
+
+		<div class="col-md-9">			
+			<table cellpadding="0" cellspacing="0" class="table table-striped">
+				<tbody>
+				<tr>
+		<th><?php echo __('Id'); ?></th>
+		<td>
 			<?php echo h($company['Company']['id']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('User Id'); ?></dt>
-		<dd>
-			<?php echo h($company['Company']['user_id']); ?>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('User'); ?></th>
+		<td>
+			<?php echo $this->Html->link($company['User']['title'], array('controller' => 'users', 'action' => 'view', $company['User']['id'])); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Name'); ?></th>
+		<td>
 			<?php echo h($company['Company']['name']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Number'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Number'); ?></th>
+		<td>
 			<?php echo h($company['Company']['number']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Street'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Street'); ?></th>
+		<td>
 			<?php echo h($company['Company']['street']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Zip'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Zip'); ?></th>
+		<td>
 			<?php echo h($company['Company']['zip']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('City'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('City'); ?></th>
+		<td>
 			<?php echo h($company['Company']['city']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Country'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Country'); ?></th>
+		<td>
 			<?php echo h($company['Company']['country']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Phone'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Phone'); ?></th>
+		<td>
 			<?php echo h($company['Company']['phone']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Email'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Email'); ?></th>
+		<td>
 			<?php echo h($company['Company']['email']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Website'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Website'); ?></th>
+		<td>
 			<?php echo h($company['Company']['website']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Type'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Type'); ?></th>
+		<td>
 			<?php echo h($company['Company']['type']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('First Accounting Year'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('First Accounting Year'); ?></th>
+		<td>
 			<?php echo h($company['Company']['first_accounting_year']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Closing Date'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Closing Date'); ?></th>
+		<td>
 			<?php echo h($company['Company']['closing_date']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Blocking Date'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Blocking Date'); ?></th>
+		<td>
 			<?php echo h($company['Company']['blocking_date']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Currency'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Currency'); ?></th>
+		<td>
 			<?php echo h($company['Company']['currency']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Vat Registered'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Vat Registered'); ?></th>
+		<td>
 			<?php echo h($company['Company']['vat_registered']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Vat Model'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Vat Model'); ?></th>
+		<td>
 			<?php echo h($company['Company']['vat_model']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Vat Both'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Vat Both'); ?></th>
+		<td>
 			<?php echo h($company['Company']['vat_both']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Vat Number'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Vat Number'); ?></th>
+		<td>
 			<?php echo h($company['Company']['vat_number']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Starting Vat'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Starting Vat'); ?></th>
+		<td>
 			<?php echo h($company['Company']['starting_vat']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Created'); ?></th>
+		<td>
 			<?php echo h($company['Company']['created']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Expiration Date'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Expiration Date'); ?></th>
+		<td>
 			<?php echo h($company['Company']['expiration_date']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Current Step'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Current Step'); ?></th>
+		<td>
 			<?php echo h($company['Company']['current_step']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Test'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Test'); ?></th>
+		<td>
 			<?php echo h($company['Company']['test']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Logo'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Logo'); ?></th>
+		<td>
 			<?php echo h($company['Company']['logo']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Background Color'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Background Color'); ?></th>
+		<td>
 			<?php echo h($company['Company']['background_color']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Model'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Model'); ?></th>
+		<td>
 			<?php echo h($company['Company']['model']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Rounding Option'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Rounding Option'); ?></th>
+		<td>
 			<?php echo h($company['Company']['rounding_option']); ?>
 			&nbsp;
-		</dd>
-		<dt><?php echo __('Disabled'); ?></dt>
-		<dd>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Disabled'); ?></th>
+		<td>
 			<?php echo h($company['Company']['disabled']); ?>
 			&nbsp;
-		</dd>
-	</dl>
+		</td>
+</tr>
+<tr>
+		<th><?php echo __('Canton'); ?></th>
+		<td>
+			<?php echo h($company['Company']['canton']); ?>
+			&nbsp;
+		</td>
+</tr>
+				</tbody>
+			</table>
+
+		</div><!-- end col md 9 -->
+
+	</div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Company'), array('action' => 'edit', $company['Company']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Company'), array('action' => 'delete', $company['Company']['id']), array(), __('Are you sure you want to delete # %s?', $company['Company']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Companies'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Company'), array('action' => 'add')); ?> </li>
-	</ul>
-</div>
+
