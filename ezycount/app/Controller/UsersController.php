@@ -29,6 +29,7 @@ class UsersController extends AppController {
 	public function index() {
 		$this->User->recursive = 0;
 		
+		
 		// display result of search
 		$searchFieldArray = $this->searchFieldsUsed();
 		
@@ -46,8 +47,12 @@ class UsersController extends AppController {
 					)
 			);
 			
-		} //else // display all users
-			$this->set ( 'users', $this->paginate ( 'User' ) );
+		} // display all users
+		$this->set ( 'users', $this->paginate ( 'User' ) );
+		
+		
+		
+			
 	}
 	public function view($id = null) {
 		if (! $this->User->exists ( $id )) {

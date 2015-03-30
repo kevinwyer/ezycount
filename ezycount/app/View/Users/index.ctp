@@ -25,8 +25,6 @@
 </table>
 	
 	
-	
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
@@ -89,7 +87,7 @@
 			<p>
 				<small><?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?></small>
 			</p>
-
+			
 			<?php
 			$params = $this->Paginator->params();
 			if ($params['pageCount'] > 1) {

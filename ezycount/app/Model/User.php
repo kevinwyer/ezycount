@@ -6,6 +6,8 @@ class User extends AppModel {
 
 	public $displayField = 'title';
 	
+	public $testnumber = 10;
+	
 	private $selectAll = "SELECT * FROM ezycount_users ";
 
 	
@@ -97,7 +99,7 @@ class User extends AppModel {
 		
 		$key = null;
 		$column = null;
-	
+		
 		// Mandatory to have
 		$this->useTable = false;
 		$sql = '';
@@ -106,9 +108,6 @@ class User extends AppModel {
 	
 		if (!empty($conditions))
 			$sql .= $conditions;
-		
-		
-		var_dump($order);
 		
 		if ($order != null){
 			$key = array_keys($order)[0];
@@ -119,9 +118,7 @@ class User extends AppModel {
 		// Adding LIMIT Clause
 		$sql .=  " limit " . (($page - 1) * $limit) . ', ' . $limit;
 	
-	
 		$results = $this->query($sql);
-	
 	
 		return $results;
 	}
