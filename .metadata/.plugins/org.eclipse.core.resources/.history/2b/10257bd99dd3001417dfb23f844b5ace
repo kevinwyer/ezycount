@@ -1,0 +1,18 @@
+<div class="users form">
+<?php echo $this->Form->create('User'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit User Informations'); ?></legend>
+	<?php
+		echo $this->Form->input('id');
+		echo $this->Form->input('first_name');
+		echo $this->Form->input('last_name');
+		echo $this->Form->input('email');
+		echo $this->Form->input('country');
+		echo $this->Form->input('language');
+	?>
+	</fieldset>
+<div class="submit">
+         <?php echo $this->Form->submit(__('Submit'), array('name' => 'ok', 'div' => false)); ?>
+         <?php echo $this->Form->submit(__('Cancel', true), array('name' => 'cancel','div' => false)); ?>
+</div>
+</div>

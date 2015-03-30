@@ -1,0 +1,152 @@
+<?php
+App::uses ( 'AppController', 'Controller' );
+class UsersController extends AppController {
+	
+	public $components = array (
+			'Paginator',
+			'Session' 
+	);
+	
+	private function searchFieldsUsed() {
+		
+		// check if the search function was used
+		if (isset ( $_POST ["search_name"] ) && isset ( $_POST ["search_email"] )) {
+			
+			// check if the search fields are NOT containing something
+			if ($_POST ["search_email"] == "" && $_POST ["search_name"] == "") {
+				
+				// nothing in the input fields
+				return null;
+			} else {
+				
+				return array(
+						"name" => $_POST ["search_name"] != "" ? $_POST ["search_name"] : null,
+						"mail" =>  $_POST ["search_email"] != "" ? $_POST ["search_email"] : null);
+			}
+		}
+		return null;
+	}
+	public function index() {
+		$this->User->recursive = 0;
+		
+		// display result of search
+		$searchFieldArray = $this->searchFieldsUsed();
+		
+		if ($searchFieldArray != null) { // array or null
+
+			$this->paginate = array (
+					'User' => array (
+							'conditions' => (
+									'where 
+									(first_name LIKE "' . $searchFieldArray['name'] . '")' .
+									'OR'.
+									'(last_name LIKE "' . $searchFieldArray['name'] . '")' .
+									'OR' .
+									'(email LIKE "' . $searchFieldArray['mail'] . '")')
+					)
+			);
+			
+		} //else // display all users
+		$this->set('users', $this->paginate('User'));
+		
+		$this->loadModel("User");
+		$query_options = array();
+		$query_options["fields"] = array("User.id","companies.user_id");
+		$query_options["joins"] = array("table" => "companies",
+				"alias" => "companies", 
+				"type" => "INNER", 
+				"conditions" => array("companies.user_id = User.id",));
+		$this->set("Company", $this->User->find('all', array($query_options,'limit' => 10 ,'recursive' => 1)));
+		
+// 			$this->set ( 'users', $this->User->find ( 'User', array (
+// 				'fields' => array (
+// 						'User.id',
+// 						'Company.user_id' 
+// 				),
+// 				'joins' => array (
+// 						array (
+// 								'table' => 'companies',
+// 								'alias' => 'Company',
+// 								'type' => 'INNER',
+// 								'conditions' => array (
+// 										'User.id = Company.user_id' 
+// 								) 
+// 						) 
+// 				) 
+// 		) )
+
+// 		 );
+			
+	}
+	public function view($id = null) {
+		if (! $this->User->exists ( $id )) {
+			throw new NotFoundException ( __ ( 'Invalid user' ) );
+		}
+		$options = array (
+				'conditions' => array (
+						'User.' . $this->User->primaryKey => $id 
+				) 
+		);
+		$this->set ( 'user', $this->User->find ( 'first', $options ) );
+	}
+	public function add() {
+		if ($this->request->is ( 'post' )) {
+			$this->User->create ();
+			if ($this->User->save ( $this->request->data )) {
+				$this->Session->setFlash ( __ ( 'The user has been saved.' ) );
+				return $this->redirect ( array (
+						'action' => 'index' 
+				) );
+			} else {
+				$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.' ) );
+			}
+		}
+	}
+	public function edit($id = null) {
+		if (! $this->User->exists ( $id )) {
+			throw new NotFoundException ( __ ( 'Invalid user' ) );
+		}
+		if ($this->request->is ( array (
+				'post',
+				'put' 
+		) )) {
+			// When you click on cancel
+			if (isset ( $this->request->data ['cancel'] )) {
+				return $this->redirect ( array (
+						'action' => 'index' 
+				) );
+			}
+			// When you click on submit
+			if ($this->User->save ( $this->request->data )) {
+				$this->Session->setFlash ( __ ( 'The user has been saved.' ) );
+				return $this->redirect ( array (
+						'action' => 'index' 
+				) );
+			} else {
+				$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.' ) );
+			}
+		} else {
+			$options = array (
+					'conditions' => array (
+							'User.' . $this->User->primaryKey => $id 
+					) 
+			);
+			$this->request->data = $this->User->find ( 'first', $options );
+		}
+	}
+	public function delete($id = null) {
+		$this->User->id = $id;
+		if (! $this->User->exists ()) {
+			throw new NotFoundException ( __ ( 'Invalid user' ) );
+		}
+		$this->request->allowMethod ( 'post', 'delete' );
+		if ($this->User->delete ()) {
+			$this->Session->setFlash ( __ ( 'The user has been deleted.' ) );
+		} else {
+			$this->Session->setFlash ( __ ( 'The user could not be deleted. Please, try again.' ) );
+		}
+		return $this->redirect ( array (
+				'action' => 'index' 
+		) );
+	}
+}
