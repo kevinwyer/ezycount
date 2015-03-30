@@ -19,6 +19,26 @@ class Company extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'user_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'name' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -50,8 +70,8 @@ class Company extends AppModel {
 			),
 		),
 		'zip' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -79,6 +99,16 @@ class Company extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'phone' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
@@ -90,8 +120,8 @@ class Company extends AppModel {
 			),
 		),
 		'website' => array(
-			'url' => array(
-				'rule' => array('url'),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -140,8 +170,8 @@ class Company extends AppModel {
 			),
 		),
 		'currency' => array(
-			'money' => array(
-				'rule' => array('money'),
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -179,6 +209,16 @@ class Company extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'vat_number' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'starting_vat' => array(
 			'date' => array(
 				'rule' => array('date'),
@@ -190,8 +230,8 @@ class Company extends AppModel {
 			),
 		),
 		'created' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
+			'date' => array(
+				'rule' => array('date'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -210,8 +250,8 @@ class Company extends AppModel {
 			),
 		),
 		'current_step' => array(
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
+			'numeric' => array(
+				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -229,9 +269,19 @@ class Company extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'rounding_option' => array(
-			'decimal' => array(
-				'rule' => array('decimal'),
+		'logo' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'background_color' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -242,6 +292,16 @@ class Company extends AppModel {
 		'disabled' => array(
 			'boolean' => array(
 				'rule' => array('boolean'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'canton' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
