@@ -1,5 +1,7 @@
 <div class="cities index">
 
+<!-- Search function -->
+
 <table>
 	<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/cities">
 	<tbody>

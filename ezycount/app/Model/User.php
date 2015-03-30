@@ -1,152 +1,132 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * User Model
- *
- */
+
 class User extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'title';
 
-/**
- * Validation rules
- *
- * @var array
- */
+	public $displayField = 'title';
+	
+	private $selectAll = "SELECT * FROM ezycount_users ";
+
+	
 	public $validate = array(
 		'id' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'email' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'E-Mail required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'password' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Password required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'title' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Title required (Mr. or Mrs.)',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'first_name' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'First name required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'last_name' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Last name required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'country' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Country required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'is_activated' => array(
 			'required' => array(
 				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'is_admin' => array(
 			'required' => array(
 				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'created' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'language' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				'message' => 'Language required',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'disabled' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'didTour' => array(
 			'required' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+
 			),
 		),
 	);
+	
+	
+	// custom paginator
+	public function paginate($conditions, $fields, $order, $limit, $page = 1, $recursive = null, $extra = array()) {
+		$recursive = -1;
+	
+		// Mandatory to have
+		$this->useTable = false;
+		$sql = '';
+	
+		$sql .= $this->selectAll ;
+	
+		if (!empty($conditions))
+			$sql .= $conditions;
+	
+		// Adding LIMIT Clause
+		$sql .=  " limit " . (($page - 1) * $limit) . ', ' . $limit;
+	
+	
+		$results = $this->query($sql);
+	
+	
+		return $results;
+	}
+	
+	
+	public function paginateCount($conditions = null, $recursive = 0, $extra = array()) {
+	
+		$sql = '';
+	
+		$sql .= $this->selectAll;
+		if (!empty($conditions))
+			$sql .= $conditions;
+	
+		$this->recursive = $recursive;
+	
+		$results = $this->query($sql);
+	
+		return count($results);
+	}
 }

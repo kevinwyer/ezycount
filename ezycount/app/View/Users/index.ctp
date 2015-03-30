@@ -1,5 +1,32 @@
 <div class="users index">
 
+	
+<!-- Search function -->
+
+<table>
+	<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/users">
+	<tbody>
+		<tr>
+			(% for missing letters)
+			<th>
+			<input name="search_name" placeholder="Firstname / Lastname"/>
+			</th>
+			
+			<th>
+			<input name="search_email" placeholder="E-Mail"/>
+			</th>
+		</tr>
+		
+		<tr>
+			<th><input type="submit" value="Submit"></th>
+		</tr>
+	</tbody>
+	</form>
+</table>
+	
+	
+	
+	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
@@ -42,17 +69,17 @@
 				<tbody>
 				<?php foreach ($users as $user): ?>
 					<tr>
-						<td><?php echo h($user['User']['id']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['first_name']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['last_name']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['country']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
-						<td><?php echo h($user['User']['language']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['id']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['first_name']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['last_name']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['email']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
+						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>
 						<td class="actions">
-							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['User']['id']), array('escape' => false)); ?>
-							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $user['User']['id']), array('escape' => false)); ?>
-							<?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $user['User']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['ezycount_users']['id']), array('escape' => false)); ?>
+							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $user['ezycount_users']['id']), array('escape' => false)); ?>
+							<?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $user['ezycount_users']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $user['ezycount_users']['id'])); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
