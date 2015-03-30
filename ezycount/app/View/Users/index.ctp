@@ -86,6 +86,34 @@
 				</tbody>
 			</table>
 
+			<!-- Pagination -->
+
+<table>
+	<form id="paginateFunction" method="post" action="/ezycount/ezycount/users">
+	<tbody>
+		<tr>
+			
+			<th>
+			Number of results :
+			</th>
+			
+			<th>
+			<select name ="select_value">
+				<option value="5">5</option>
+  <option value="10">10</option>
+  <option value="15">15</option>
+  <option value="20">20</option>
+			</select>			</th>
+		</tr>
+		
+		<tr>
+			<th><input type="submit" value="Submit"></th>
+		</tr>
+	</tbody>
+	</form>
+</table>
+
+
 			<p>
 				<small><?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?></small>
 			</p>
