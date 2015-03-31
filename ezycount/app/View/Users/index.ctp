@@ -5,7 +5,7 @@
 
 	<table>
 		<form id="searchFunction" method="post"
-			action="/ezycount/ezycount/users">
+			action="/Git/ezycount/ezycount/users">
 			<tbody>
 				<tr>
 					(% for missing letters)
@@ -23,7 +23,7 @@
 	</table>
 
 	<form id="searchFunction" method="post"
-		action="/ezycount/ezycount/users/deleteSession">
+		action="/Git/ezycount/ezycount/users/deleteSession">
 		<input type="submit" value="Reset search">
 	</form>
 
@@ -66,6 +66,7 @@
 						<th><?php echo $this->Paginator->sort('first_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('last_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('email'); ?></th>
+						<th><?php echo $this->Paginator->sort('canton'); ?></th>
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
@@ -79,6 +80,9 @@
 						<td><?php echo h($user['ezycount_users']['first_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['email']); ?>&nbsp;</td>
+						<td>
+<?php echo $this->Html->link($user['ezycount_companies']['canton'], array('controller' => 'companies', 'action' => 'view', $user['ezycount_companies']['user_id'])); ?>
+						</td>
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>
@@ -96,7 +100,7 @@
 
 			<table>
 				<form id="paginateFunction" method="post"
-					action="/ezycount/ezycount/users">
+					action="/Git/ezycount/ezycount/users">
 					<tbody>
 						<tr>
 
