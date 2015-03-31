@@ -329,7 +329,7 @@ class Company extends AppModel {
 	
 		if ($order != null) {
 			$key = array_keys ( $order )[0];
-			$column = substr ( $key, 5 );
+			$column = substr ( $key, 8 );
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
 	
