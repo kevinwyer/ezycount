@@ -128,7 +128,6 @@ class User extends AppModel {
 		
 		$sql .= $this->selectAll;
 		
-		var_dump($conditions);
 		if (! empty ( $conditions ))
 			$sql .= $conditions;
 		

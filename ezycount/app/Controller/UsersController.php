@@ -45,13 +45,12 @@ class UsersController extends AppController {
 					) 
 			);
 		} else if ($this->Session->check ( 'session' )) {
-			
-			// display all users
-			$this->set ( 'users', $this->paginate ( 'User' ) );
+
+			$defaultLimit =  $this->Session->read ( 'session' );
 			
 			$this->paginate = array (
 					'User' => array (
-							'limit' => $this->Session->read ( 'session' ) 
+							'limit' => $defaultLimit
 					) 
 			);
 			
