@@ -71,7 +71,9 @@ class CompaniesController extends AppController {
 		if (!$this->Company->exists($id)) {
 			throw new NotFoundException(__('Invalid company'));
 		}
-		$options = array('conditions' => array('Company.' . $this->Company->primaryKey => $id));
+		$options = array(
+				'conditions' => array(
+				'Company.' . $this->Company->primaryKey => $id));
 		$this->set('company', $this->Company->find('first', $options));
 	}
 
