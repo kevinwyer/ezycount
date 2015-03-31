@@ -128,14 +128,14 @@ class User extends AppModel {
 		
 		$sql .= $this->selectAll;
 		
+		//check if there are conditions
 		if (! empty ( $conditions ))
 			$sql .= $conditions;
 		
-		var_dump ( $order );
-		
+		// make the order by title aviable
 		if ($order != null) {
 			$key = array_keys ( $order )[0];
-			$column = substr ( $key, 5 );
+			$column = substr ( $key, 5 );  // 5 = 'user.'
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
 		

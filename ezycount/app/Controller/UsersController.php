@@ -8,12 +8,17 @@ class UsersController extends AppController {
 	
 	public function deleteSession(){
 	
+		// check if a name was stored in the session
+		// if existing remove it 
 		if ($this->Session->check ( 'search_name' ))
 			$this->Session->destroy('search_name');
 	
+		// check if a mail was stored in the session
+		// if existing remove it
 		if ($this->Session->check ( 'search_email' ))
 			$this->Session->destroy('search_email');
 		
+		// reload the page
 		header("location:/Git/ezycount/ezycount/users"); 
 		exit();
 	
@@ -90,10 +95,12 @@ class UsersController extends AppController {
 		// display result of search
 		if ($this->Session->check ( 'search_email' ) || $this->Session->check ( 'search_name' ) ) {
 			
+			// display for test reasons the Session content
 			echo 'Search in use <br/>';
 			echo '<br/> mail ' . $this->Session->read('search_email');
 			echo '<br/> name '  . $this->Session->read('search_name');
 			
+			// query the right information
 			$this->paginate = array (
 					'User' => array (
 							'conditions' => 
@@ -107,7 +114,7 @@ class UsersController extends AppController {
 					) 
 			);
 		}
-		// display all users
+		// display users
 		
 		$this->set ( 'users', $this->paginate ( 'User' ) );
 	}
