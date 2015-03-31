@@ -18,9 +18,6 @@ class CompaniesController extends AppController {
 	public function index() {
 		$this->Company->recursive = 0;
 		$this->set('companies', $this->Paginator->paginate());
-// 		$this->Company->recursive = 1;
-// 		$companies = $this->Company->find('all');
-// 		$this->set('companies', $companies);
 	}
 
 /**
