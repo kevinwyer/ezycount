@@ -13,11 +13,44 @@ class CompaniesController extends AppController {
 	var $name = 'Companies';
 	var $scaffold;
 
-	public $components = array('Paginator', 'Session', 'Session');
+	public $components = array('Paginator', 'Session');
 
 	public function index() {
 		$this->Company->recursive = 0;
-		$this->set('companies', $this->Paginator->paginate());
+		
+		$defaultLimit = 10;
+		
+		if (isset ( $_POST ["select_value"] )) {
+				
+			$this->Session->write ( 'session', $_POST ["select_value"] );
+				
+			$this->paginate = array (
+					'Company' => array (
+							'limit' => $_POST ["select_value"]
+					)
+			);
+		} else if ($this->Session->check ( 'session' )) {
+		
+			$defaultLimit =  $this->Session->read ( 'session' );
+				
+			$this->paginate = array (
+					'Company' => array (
+							'limit' => $defaultLimit
+					)
+			);
+				
+			// $this->Session->destroy('session');
+		}
+		else {
+			$this->paginate = array (
+					'Company' => array (
+							'limit' => $defaultLimit
+					)
+			);
+		}
+		
+		
+		$this->set('companies', $this->paginate('Company'));
 	}
 
 /**

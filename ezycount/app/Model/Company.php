@@ -8,6 +8,10 @@ class Company extends AppModel {
 
 	public $displayField = 'name';
 	
+	//private $selectAll = "SELECT * FROM ezycount_companies, ezycount_users ";
+	
+	private $selectAll = "SELECT * FROM ezycount_companies LEFT JOIN ezycount_users ON ezycount_companies.user_id = ezycount_users.id ";
+	
 	public $validate = array(
 		'id' => array(
 			'notEmpty' => array(
@@ -300,4 +304,54 @@ class Company extends AppModel {
 			),
 		),
 	);
+	
+	// custom paginator
+	public function paginate($conditions, $fields, $order, $limit, $page = 1, $recursive = null, $extra = array()) {
+		$recursive = - 1;
+	
+		$key = null;
+		$column = null;
+	
+		// Mandatory to have
+		$this->useTable = false;
+		$sql = '';
+	
+		$sql .= $this->selectAll;
+	
+		if (! empty ( $conditions ))
+			$sql .= $conditions;
+	
+		echo 'conditions ';
+		var_dump($conditions);
+
+		echo '<br/>order';
+		var_dump ( $order );
+	
+		if ($order != null) {
+			$key = array_keys ( $order )[0];
+			$column = substr ( $key, 5 );
+			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
+		}
+	
+		// Adding LIMIT Clause
+		$sql .= " limit " . (($page - 1) * $limit) . ', ' . $limit;
+	
+		$results = $this->query ( $sql );
+	
+		return $results;
+	}
+	public function paginateCount($conditions = null, $recursive = 0, $extra = array()) {
+		$sql = '';
+	
+		$sql .= $this->selectAll;
+		if (! empty ( $conditions ))
+			$sql .= $conditions;
+	
+		$this->recursive = $recursive;
+	
+		$results = $this->query ( $sql );
+	
+		return count ( $results );
+	}
+	
 }

@@ -55,35 +55,61 @@
 				<tbody>
 				<?php foreach ($companies as $company): ?>
 					<tr>
-						<td><?php echo h($company['Company']['id']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['name']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['id']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['name']); ?>&nbsp;</td>
 								<td>
-			<?php echo $this->Html->link($company['User']['title'], array('controller' => 'users', 'action' => 'view', $company['User']['id'])); ?>
+			<?php echo $this->Html->link($company['ezycount_users']['title'], array('controller' => 'users', 'action' => 'view', $company['ezycount_users']['id'])); ?>
 		</td>
 						
-						<td><?php echo h($company['Company']['number']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['street']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['email']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['phone']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['website']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['currency']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['city']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['canton']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['vat_number']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['vat_model']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['vat_registered']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['expiration_date']); ?>&nbsp;</td>
-						<td><?php echo h($company['Company']['rounding_option']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['number']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['street']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['email']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['phone']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['website']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['currency']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['city']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['canton']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['vat_number']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['vat_model']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['vat_registered']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['expiration_date']); ?>&nbsp;</td>
+						<td><?php echo h($company['ezycount_companies']['rounding_option']); ?>&nbsp;</td>
 						
 						<td class="actions">
-							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $company['Company']['id']), array('escape' => false)); ?>
-							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $company['Company']['id']), array('escape' => false)); ?>
-							<?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $company['Company']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $company['Company']['id'])); ?>
+							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $company['ezycount_companies']['id']), array('escape' => false)); ?>
+							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $company['ezycount_companies']['id']), array('escape' => false)); ?>
+							<?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>', array('action' => 'delete', $company['ezycount_companies']['id']), array('escape' => false), __('Are you sure you want to delete # %s?', $company['ezycount_companies']['id'])); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
 			</table>
+
+			<table>
+	<form id="paginateFunction" method="post" action="/ezycount/ezycount/companies">
+	<tbody>
+		<tr>
+			
+			<th>
+			Number of results :
+			</th>
+			
+			<th>
+			<select name ="select_value">
+				<option value="5">5</option>
+  <option value="10">10</option>
+  <option value="15">15</option>
+  <option value="20">20</option>
+			</select>			</th>
+		</tr>
+		
+		<tr>
+			<th><input type="submit" value="Submit"></th>
+		</tr>
+	</tbody>
+	</form>
+</table>
+
 
 			<p>
 				<small><?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')));?></small>
