@@ -13,6 +13,19 @@
 					</th>
 
 					<th><input name="search_email" placeholder="E-Mail" /></th>
+					
+					<th>
+			<input name="search_canton" placeholder="Canton"/>
+			</th>
+			
+			<th>
+			<input name="search_language" placeholder="Language"/>
+			</th>
+			
+			<th>
+			<input name="search_registrationDate" placeholder="Registration date"/>
+			</th>
+			
 				</tr>
 
 				<tr>
