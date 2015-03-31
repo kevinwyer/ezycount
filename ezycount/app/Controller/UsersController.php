@@ -14,7 +14,7 @@ class UsersController extends AppController {
 		if ($this->Session->check ( 'search_email' ))
 			$this->Session->destroy('search_email');
 		
-		header("location:/Git/ezycount/ezycount/users"); //to redirect back to "index.php" after logging out
+		header("location:/Git/ezycount/ezycount/users"); 
 		exit();
 	
 	}
