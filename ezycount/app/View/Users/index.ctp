@@ -58,7 +58,7 @@
 						<th><?php echo $this->Paginator->sort('first_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('last_name'); ?></th>
 						<th><?php echo $this->Paginator->sort('email'); ?></th>
-						<th><?php echo $this->Paginator->sort('country'); ?></th>
+						<th><?php echo $this->Paginator->sort('id'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
 						<th class="actions">Actions</th>
