@@ -1,40 +1,41 @@
 <div class="users index">
 
-	
-<!-- Search function -->
 
-<table>
-	<form id="searchFunction" method="post" action="/ezycount/ezycount/users">
-	<tbody>
-		<tr>
-			(% for missing letters)
-			<th>
-			<input name="search_name" placeholder="Firstname / Lastname"/>
-			</th>
-			
-			<th>
-			<input name="search_email" placeholder="E-Mail"/>
-			</th>
-		</tr>
-		
-		<tr>
-			<th><input type="submit" value="Submit"></th>
-		</tr>
-	</tbody>
-	</form>
-</table>
+	<!-- Search function -->
 
-		<form id="searchFunction" method="post" action="/ezycount/ezycount/users/deleteSession">
-			<input type="submit" value="Reset search">
+	<table>
+		<form id="searchFunction" method="post"
+			action="/ezycount/ezycount/users">
+			<tbody>
+				<tr>
+					(% for missing letters)
+					<th><input name="search_name" placeholder="Firstname / Lastname" />
+					</th>
+
+					<th><input name="search_email" placeholder="E-Mail" /></th>
+				</tr>
+
+				<tr>
+					<th><input type="submit" value="Submit"></th>
+				</tr>
+			</tbody>
 		</form>
-	
+	</table>
+
+	<form id="searchFunction" method="post"
+		action="/ezycount/ezycount/users/deleteSession">
+		<input type="submit" value="Reset search">
+	</form>
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
 				<h1><?php echo __('Users'); ?></h1>
 			</div>
-		</div><!-- end col md 12 -->
-	</div><!-- end row -->
+		</div>
+		<!-- end col md 12 -->
+	</div>
+	<!-- end row -->
 
 
 
@@ -44,14 +45,18 @@
 			<div class="actions">
 				<div class="panel panel-default">
 					<div class="panel-heading">Actions</div>
-						<div class="panel-body">
-							<ul class="nav nav-pills nav-stacked">
-								<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New User'), array('action' => 'add'), array('escape' => false)); ?></li>
-													</ul>
-						</div><!-- end body -->
-				</div><!-- end panel -->
-			</div><!-- end actions -->
-		</div><!-- end col md 3 -->
+					<div class="panel-body">
+						<ul class="nav nav-pills nav-stacked">
+							<li><?php echo $this->Html->link(__('<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New User'), array('action' => 'add'), array('escape' => false)); ?></li>
+						</ul>
+					</div>
+					<!-- end body -->
+				</div>
+				<!-- end panel -->
+			</div>
+			<!-- end actions -->
+		</div>
+		<!-- end col md 3 -->
 
 		<div class="col-md-9">
 			<table cellpadding="0" cellspacing="0" class="table table-striped">
@@ -89,30 +94,28 @@
 
 			<!-- Pagination -->
 
-<table>
-	<form id="paginateFunction" method="post" action="/ezycount/ezycount/users">
-	<tbody>
-		<tr>
-			
-			<th>
-			Number of results :
-			</th>
-			
-			<th>
-			<select name ="select_value">
-				<option value="5">5</option>
-  <option value="10">10</option>
-  <option value="15">15</option>
-  <option value="20">20</option>
-			</select>			</th>
-		</tr>
-		
-		<tr>
-			<th><input type="submit" value="Submit"></th>
-		</tr>
-	</tbody>
-	</form>
-</table>
+			<table>
+				<form id="paginateFunction" method="post"
+					action="/ezycount/ezycount/users">
+					<tbody>
+						<tr>
+
+							<th>Number of results :</th>
+
+							<th><select name="select_value">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+							</select></th>
+						</tr>
+
+						<tr>
+							<th><input type="submit" value="Submit"></th>
+						</tr>
+					</tbody>
+				</form>
+			</table>
 
 
 			<p>
@@ -120,17 +123,40 @@
 			</p>
 			
 			<?php
-			$params = $this->Paginator->params();
-			if ($params['pageCount'] > 1) {
-			?>
+			$params = $this->Paginator->params ();
+			if ($params ['pageCount'] > 1) {
+				?>
 			<ul class="pagination pagination-sm">
 				<?php
-					echo $this->Paginator->prev('&larr; Previous', array('class' => 'prev','tag' => 'li','escape' => false), '<a onclick="return false;">&larr; Previous</a>', array('class' => 'prev disabled','tag' => 'li','escape' => false));
-					echo $this->Paginator->numbers(array('separator' => '','tag' => 'li','currentClass' => 'active','currentTag' => 'a'));
-					echo $this->Paginator->next('Next &rarr;', array('class' => 'next','tag' => 'li','escape' => false), '<a onclick="return false;">Next &rarr;</a>', array('class' => 'next disabled','tag' => 'li','escape' => false));
+				echo $this->Paginator->prev ( '&larr; Previous', array (
+						'class' => 'prev',
+						'tag' => 'li',
+						'escape' => false 
+				), '<a onclick="return false;">&larr; Previous</a>', array (
+						'class' => 'prev disabled',
+						'tag' => 'li',
+						'escape' => false 
+				) );
+				echo $this->Paginator->numbers ( array (
+						'separator' => '',
+						'tag' => 'li',
+						'currentClass' => 'active',
+						'currentTag' => 'a' 
+				) );
+				echo $this->Paginator->next ( 'Next &rarr;', array (
+						'class' => 'next',
+						'tag' => 'li',
+						'escape' => false 
+				), '<a onclick="return false;">Next &rarr;</a>', array (
+						'class' => 'next disabled',
+						'tag' => 'li',
+						'escape' => false 
+				) );
 				?>
 			</ul>
 			<?php } ?>
 
-		</div> <!-- end col md 9 -->
-	</div><!-- end row -->
+		</div>
+		<!-- end col md 9 -->
+	</div>
+	<!-- end row -->
