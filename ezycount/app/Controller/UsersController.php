@@ -104,12 +104,12 @@ class UsersController extends AppController {
 			$this->paginate = array (
 					'User' => array (
 							'conditions' => 
-								('where first_name LIKE "' .  $this->Session->read ( 'search_name' ) . '"') . 
-									'OR' . 
-								'(last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' .
-									 'OR' . 
-								'(email LIKE "' .  $this->Session->read ( 'search_email' ) .
-								 '")',
+								(' AND  ezycount_users.first_name LIKE "' .  $this->Session->read ( 'search_name' ) . '"') . 
+									' OR ' . 
+								'( ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' .
+									 ' OR ' . 
+								'( ezycount_users.email LIKE "' .  $this->Session->read ( 'search_email' ) .
+								 '"  ) ',
 								'limit' => $defaultLimit
 					) 
 			);

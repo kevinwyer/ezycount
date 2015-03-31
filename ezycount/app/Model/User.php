@@ -7,7 +7,7 @@ class User extends AppModel {
 	
 	public $displayField = 'title';
 	
-	private $selectAll = "SELECT * FROM ezycount_companies RIGHT JOIN ezycount_users ON ezycount_companies.user_id = ezycount_users.id ";
+	private $selectAll = "SELECT * FROM ezycount_users LEFT JOIN ezycount_companies ON ezycount_companies.user_id = ezycount_users.id ";
 	
 	public $validate = array (
 			'id' => array (
@@ -135,7 +135,11 @@ class User extends AppModel {
 		// make the order by title aviable
 		if ($order != null) {
 			$key = array_keys ( $order )[0];
-			$column = substr ( $key, 5 );  // 5 = 'user.'
+			
+			// replace User.id with ezycount_users
+			// avoiding name conflict problems
+			$column = str_replace('User', 'ezycount_users', $key); 
+			
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
 		

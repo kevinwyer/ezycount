@@ -8,8 +8,6 @@ class Company extends AppModel {
 
 	public $displayField = 'name';
 	
-	//private $selectAll = "SELECT * FROM ezycount_companies, ezycount_users ";
-	
 	private $selectAll = "SELECT * FROM ezycount_companies LEFT JOIN ezycount_users ON ezycount_companies.user_id = ezycount_users.id ";
 	
 	public $validate = array(
@@ -309,6 +307,7 @@ class Company extends AppModel {
 	public function paginate($conditions, $fields, $order, $limit, $page = 1, $recursive = null, $extra = array()) {
 		$recursive = - 1;
 	
+		// variable used for order
 		$key = null;
 		$column = null;
 	
@@ -318,18 +317,19 @@ class Company extends AppModel {
 	
 		$sql .= $this->selectAll;
 	
+		// only use conditions if used 
+		// ex. where clause
 		if (! empty ( $conditions ))
 			$sql .= $conditions;
-	
-		echo 'conditions ';
-		var_dump($conditions);
-
-		echo '<br/>order';
-		var_dump ( $order );
-	
+		
+		// only add the order clause if needed
 		if ($order != null) {
 			$key = array_keys ( $order )[0];
-			$column = substr ( $key, 8 );
+
+			// replace Company.id with ezycount_companies
+			// avoiding name conflict problems
+			$column = str_replace('Company', 'ezycount_companies', $key);
+			
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
 	
@@ -344,6 +344,7 @@ class Company extends AppModel {
 		$sql = '';
 	
 		$sql .= $this->selectAll;
+		
 		if (! empty ( $conditions ))
 			$sql .= $conditions;
 	
