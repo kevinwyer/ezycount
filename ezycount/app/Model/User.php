@@ -3,11 +3,11 @@ App::uses ( 'AppModel', 'Model' );
 class User extends AppModel {
 	
 	var $name = 'User';
-	var $hasMany = 'Company';
+	var $belongsTo = 'Company';
 	
 	public $displayField = 'title';
 	
-	private $selectAll = "SELECT * FROM ezycount_users ";
+	private $selectAll = "SELECT * FROM ezycount_companies RIGHT JOIN ezycount_users ON ezycount_companies.user_id = ezycount_users.id ";
 	
 	public $validate = array (
 			'id' => array (
