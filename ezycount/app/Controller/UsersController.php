@@ -47,30 +47,37 @@ class UsersController extends AppController {
 	public function index() {
 		$this->User->recursive = 0;
 		
+		// We use this to paginate the page, and to fix a limit in the records we want
 		$defaultLimit = 10;
 		
+		// Check if we chose something from the dropdownlist
 		if (isset ( $_POST ["select_value"] )) {
 			
+			// Put the value in Session to use when the page refreshes
 			$this->Session->write ( 'session', $_POST ["select_value"] );
 			
+			// Display with the value sent by the dropdownlist
 			$this->paginate = array (
 					'User' => array (
 							'limit' => $_POST ["select_value"] 
 					) 
 			);
+			// Check if there's something in the session
 		} else if ($this->Session->check ( 'session' )) {
 
+			// Put the value as defaultLimit when the page refreshes
 			$defaultLimit =  $this->Session->read ( 'session' );
 			
+			// Display with session value
 			$this->paginate = array (
 					'User' => array (
 							'limit' => $defaultLimit
 					) 
 			);
 			
-			// $this->Session->destroy('session');
 		} 
 		else {
+			// Display with default value
 			$this->paginate = array (
 					'User' => array (
 							'limit' => $defaultLimit 
