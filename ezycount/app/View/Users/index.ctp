@@ -22,10 +22,14 @@
 		</form>
 	</table>
 
+<!-- Reset the Session of the search -->
+
 	<form id="searchFunction" method="post"
 		action="/ezycount/ezycount/users/deleteSession">
 		<input type="submit" value="Reset search">
 	</form>
+
+<!-- Generated table -->
 
 	<div class="row">
 		<div class="col-md-12">
@@ -92,7 +96,7 @@
 				</tbody>
 			</table>
 
-			<!-- Pagination -->
+			<!-- Dropdownlist: max elements on the page -->
 
 			<table>
 				<form id="paginateFunction" method="post"
