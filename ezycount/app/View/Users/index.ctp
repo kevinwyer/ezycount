@@ -4,7 +4,7 @@
 <!-- Search function -->
 
 <table>
-	<form id="searchFunction" method="post" action="/ezycount/ezycount/users">
+	<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/users">
 	<tbody>
 		<tr>
 			(% for missing letters)
@@ -23,7 +23,10 @@
 	</tbody>
 	</form>
 </table>
-	
+
+		<form id="searchFunction" method="post" action="/Git/ezycount/ezycount/users/deleteSession">
+			<input type="submit" value="Reset search">
+		</form>
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -87,7 +90,7 @@
 			<!-- Pagination -->
 
 <table>
-	<form id="paginateFunction" method="post" action="/ezycount/ezycount/users">
+	<form id="paginateFunction" method="post" action="/Git/ezycount/ezycount/users">
 	<tbody>
 		<tr>
 			

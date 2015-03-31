@@ -5,6 +5,20 @@ class UsersController extends AppController {
 			'Paginator',
 			'Session' 
 	);
+	
+	public function deleteSession(){
+	
+		if ($this->Session->check ( 'search_name' ))
+			$this->Session->destroy('search_name');
+	
+		if ($this->Session->check ( 'search_email' ))
+			$this->Session->destroy('search_email');
+		
+		header("location:/Git/ezycount/ezycount/users"); //to redirect back to "index.php" after logging out
+		exit();
+	
+	}
+	
 	private function searchFieldsUsed() {
 		
 		// check if the search function was used
@@ -14,7 +28,7 @@ class UsersController extends AppController {
 			if ($_POST ["search_email"] == "" && $_POST ["search_name"] == "") {
 				
 				// nothing in the input fields
-				return null;
+				return false;
 			} else {
 				
 				// only add the session variable if a name was searched
@@ -28,7 +42,7 @@ class UsersController extends AppController {
 				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 	public function index() {
 		$this->User->recursive = 0;
