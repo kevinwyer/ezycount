@@ -110,7 +110,7 @@ class UsersController extends AppController {
 									 'OR' . 
 								'(email LIKE "' .  $this->Session->read ( 'search_email' ) .
 								 '")',
-								'limit' => $defaultLimit 
+								'limit' => $defaultLimit
 					) 
 			);
 		}
