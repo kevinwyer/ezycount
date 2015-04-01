@@ -9,27 +9,48 @@
 			<tbody>
 				<tr>
 					(% for missing letters)
-					<th><input name="search_name" placeholder="Firstname / Lastname" />
-					</th>
+					<td><input name="search_name" placeholder="Firstname / Lastname"  
+							<?php echo $this->Session->check('search_name') ? 'value="' . $this->Session->read('search_name') .'"' : 'value=""'; 	
+							?>	/>
+					</td>
 
-					<th><input name="search_email" placeholder="E-Mail" /></th>
+					<td><input name="search_email" placeholder="E-Mail" 
+					<?php echo $this->Session->check('search_email') ? 'value="' . $this->Session->read('search_email') .'"' : 'value=""'; 	
+							?>
+					/></td>
 					
-					<th>
+					<td>
 					<input name="search_canton" placeholder="Canton"/>
-					</th>
+					</td>
 			
-					<th>
+					<td>
 					<input name="search_language" placeholder="Language"/>
-					</th>
+					</td>
 			
-					<th>
+					<td>
 					<input name="search_registrationDate" placeholder="Registration date"/>
-					</th>
+					</td>
 			
 				</tr>
 
 				<tr>
-					<th><input type="submit" value="Submit"></th>
+					<td>
+						<Input type = 'Radio' Name ='search_condition' value= 'AND'  
+						<?php 
+							 if($this->Session->check('select_condition'))
+							echo $this->Session->read('select_condition') == 'AND' ? 'checked="checked"' : '';
+						 ?>
+						> AND
+					</td>
+					<td>
+						<Input type = 'Radio' Name ='search_condition' value= 'OR'
+						<?php 
+							 if($this->Session->check('select_condition'))
+							echo $this->Session->read('select_condition') == 'OR' ? 'checked="checked"' : '';
+						 ?>
+						> OR
+					</td>
+					<td><input type="submit" value="Submit"></td>
 				</tr>
 			</tbody>
 		</form>

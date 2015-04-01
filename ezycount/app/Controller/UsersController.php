@@ -1,6 +1,7 @@
 <?php
 App::uses ( 'AppController', 'Controller' );
 class UsersController extends AppController {
+	
 	public $components = array (
 			'Paginator',
 			'Session' 
@@ -18,13 +19,20 @@ class UsersController extends AppController {
 		if ($this->Session->check ( 'search_email' ))
 			$this->Session->destroy('search_email');
 		
+		// check if a radiobutton (and / or)  was stored in the session
+		// if existing remove it
+		if ($this->Session->check ( 'select_condition' ))
+			$this->Session->destroy('select_condition');
+		
 		// reload the page
 		header("location:/Git/ezycount/ezycount/users"); 
 		exit();
-	//test
+	
 	}
 	
 	private function searchFieldsUsed() {
+		
+
 		
 		// check if the search function was used
 		if (isset ( $_POST ["search_name"] ) && isset ( $_POST ["search_email"] )) {
@@ -43,6 +51,9 @@ class UsersController extends AppController {
 				// only add the session variable if a mail was searched
 				if ($_POST ["search_email"] != "")
 					$this->Session->write ( 'search_email', $_POST ["search_email"] );
+				
+				if ($_POST ["search_condition"] != "")
+					$this->Session->write('select_condition', $_POST["search_condition"]);
 				
 				return true;
 			}
@@ -90,10 +101,18 @@ class UsersController extends AppController {
 			);
 		}
 		
-		$this->searchFieldsUsed();
+		$this->searchFieldsUsed(); 
+		
+		// check if session containing a search select
+		if (! $this->Session->check ( 'select_condition' )){
+			// default
+			$this->Session->write('select_condition', 'OR');
+		}
+		
 		
 		// display result of search
 		if ($this->Session->check ( 'search_email' ) || $this->Session->check ( 'search_name' ) ) {
+			
 			
 			// display for test reasons the Session content
 			echo 'Search in use <br/>';
@@ -104,12 +123,12 @@ class UsersController extends AppController {
 			$this->paginate = array (
 					'User' => array (
 							'conditions' => 
-								(' AND  ezycount_users.first_name LIKE "' .  $this->Session->read ( 'search_name' ) . '"') . 
+								(' AND ( ezycount_users.first_name LIKE "' .  $this->Session->read ( 'search_name' ) . '"') . 
 									' OR ' . 
-								'( ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' .
-									 ' OR ' . 
-								'( ezycount_users.email LIKE "' .  $this->Session->read ( 'search_email' ) .
-								 '"  ) ',
+								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' .
+									' '. $this->Session->read('select_condition'). '  ' . 
+								' ezycount_users.email LIKE "' .  $this->Session->read ( 'search_email' ) .
+								 '"   ',
 								'limit' => $defaultLimit
 					) 
 			);

@@ -129,8 +129,10 @@ class User extends AppModel {
 		$sql .= $this->selectAll;
 		
 		//check if there are conditions
-		if (! empty ( $conditions ))
+		if (! empty ( $conditions )){
 			$sql .= $conditions;
+			echo "<br/>" . $sql;
+		}
 		
 		// make the order by title aviable
 		if ($order != null) {
