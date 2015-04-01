@@ -64,7 +64,7 @@
 						<td><?php echo h($company['ezycount_companies']['id']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['name']); ?>&nbsp;</td>
 						<td>
-			<?php echo $this->Html->link($company['ezycount_users']['title'], array('controller' => 'users', 'action' => 'view', $company['ezycount_users']['id'])); ?>
+			<?php echo $this->Html->link($company['ezycount_users']['first_name'].' '.$company['ezycount_users']['last_name'], array('controller' => 'users', 'action' => 'view', $company['ezycount_users']['id'])); ?>
 		</td>
 
 						<td><?php echo h($company['ezycount_companies']['number']); ?>&nbsp;</td>
@@ -93,7 +93,7 @@
 
 			<table>
 				<form id="paginateFunction" method="post"
-					action="/ezycount/ezycount/companies">
+					action="/Git/ezycount/ezycount/companies">
 					<tbody>
 						<tr>
 
