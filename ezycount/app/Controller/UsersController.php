@@ -21,7 +21,7 @@ class UsersController extends AppController {
 		// reload the page
 		header("location:/Git/ezycount/ezycount/users"); 
 		exit();
-	
+	//test
 	}
 	
 	private function searchFieldsUsed() {
