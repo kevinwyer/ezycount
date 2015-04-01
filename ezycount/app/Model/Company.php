@@ -8,6 +8,8 @@ class Company extends AppModel {
 
 	public $displayField = 'name';
 	
+	private $selectImports = "SELECT DISTINCT bookings.company_id, company.name FROM `ezycount_companies` as company, `ezycount_bookings` as bookings, `ezycount_imports` as imports WHERE company.id = bookings.company_id AND bookings.import_id = imports.id";
+	
 	private $selectAll = "SELECT * FROM ezycount_companies LEFT JOIN ezycount_users ON ezycount_companies.user_id = ezycount_users.id ";
 	
 	public $validate = array(
@@ -353,6 +355,5 @@ class Company extends AppModel {
 		$results = $this->query ( $sql );
 	
 		return count ( $results );
-	}
-	
+	}	
 }
