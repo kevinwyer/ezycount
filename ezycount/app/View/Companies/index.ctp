@@ -65,7 +65,7 @@
 						<td><?php echo h($company['ezycount_companies']['name']); ?>&nbsp;</td>
 						<td>
 			<?php echo $this->Html->link($company['ezycount_users']['first_name'].' '.$company['ezycount_users']['last_name'], array('controller' => 'users', 'action' => 'view', $company['ezycount_users']['id'])); ?>
-		</td>
+						</td>
 
 						<td><?php echo h($company['ezycount_companies']['number']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['street']); ?>&nbsp;</td>
@@ -80,7 +80,6 @@
 						<td><?php echo h($company['ezycount_companies']['vat_registered']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['expiration_date']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['rounding_option']); ?>&nbsp;</td>
-
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $company['ezycount_companies']['id']), array('escape' => false)); ?>
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $company['ezycount_companies']['id']), array('escape' => false)); ?>
