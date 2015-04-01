@@ -116,25 +116,28 @@ class UsersController extends AppController {
 					';
 			
 			if ($this->Session->read ( 'search_name' ) != "" && $this->Session->read ( 'search_email' ) != "") {
+				
 				// prepare statement AND
 				// when email and firstname / lastname are search criterias
 				$conditionAND = 
-						$this->Session->read ( 'search_name' ) == "" ? '' : ' where 
+						($this->Session->read ( 'search_name' ) == "" ? '' : ' where 
 								( ezycount_users.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
 								' OR  ' . 
-								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' . 
-						$this->Session->read ( 'search_email' ) == "" ? '' : ' and ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  
-						group by ezycount_users.id ';
+								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' )
+										 . 
+						( $this->Session->read ( 'search_email' ) == "" ? '' : ' and ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  ')
+						. ' group by ezycount_users.id ';
 			} else {
+				
 				// prepare statement AND
 				// when either email or firstname / lastname are search criterias
 				$conditionAND = 
-						$this->Session->read ( 'search_name' ) == "" ? '' : ' where ( 
+						($this->Session->read ( 'search_name' ) == "" ? '' : ' where ( 
 								ezycount_users.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
 								' OR  ' . 
-								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' . 
-						$this->Session->read ( 'search_email' ) == "" ? '' : ' where ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '" 
-						group by ezycount_users.id';
+								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )') . 
+						($this->Session->read ( 'search_email' ) == "" ? '' : ' where ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '" ')
+						.'group by ezycount_users.id';
 			}
 			// display for test reasons the Session content
 			echo 'Search in use <br/>';
