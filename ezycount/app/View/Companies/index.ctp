@@ -190,17 +190,19 @@
 										?>
 									>10</option>
 									
-									<option value="15">15</option>
+									<option value="15"
 										<?php 
  											if($this->Session->check('session'))
 												echo $this->Session->read('session') == '15' ? ' selected="selected"' : '';
 										?>
+									>15</option>
 									
-									<option value="20">20</option>
+									<option value="20"
 										<?php 
  											if($this->Session->check('session'))
 												echo $this->Session->read('session') == '20' ? ' selected="selected"' : '';
 										?>
+									>20</option>
 							</select></th>
 						</tr>
 
