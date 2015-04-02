@@ -103,6 +103,19 @@ class UsersController extends AppController {
 			// default
 			$this->Session->write ( 'select_condition', 'OR' );
 		}
+		else{
+			// nothing stored in the session
+			// = first load of the page
+			// add group by clause
+			
+			
+			$this->paginate = array (
+					'User' => array (
+							'conditions' => ('group by ezycount_users.id'),
+							'limit' => $defaultLimit
+					)
+			);
+		}
 		
 		// display result of search
 		if ($this->Session->check ( 'search_email' ) || $this->Session->check ( 'search_name' )) {
@@ -139,10 +152,6 @@ class UsersController extends AppController {
 						($this->Session->read ( 'search_email' ) == "" ? '' : ' where ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '" ')
 						.'group by ezycount_users.id';
 			}
-			// display for test reasons the Session content
-			echo 'Search in use <br/>';
-			echo '<br/> mail ' . $this->Session->read ( 'search_email' );
-			echo '<br/> name ' . $this->Session->read ( 'search_name' );
 			
 			// query the right information
 			$this->paginate = array (
@@ -157,15 +166,21 @@ class UsersController extends AppController {
 		$this->set ( 'users', $this->paginate ( 'User' ) );
 	}
 	public function view($id = null) {
+		
 		if (! $this->User->exists ( $id )) {
 			throw new NotFoundException ( __ ( 'Invalid user' ) );
 		}
-		$options = array (
-				'conditions' => array (
-						'User.' . $this->User->primaryKey => $id 
-				) 
+
+		$this->paginate = array (
+				'User' => array (
+						'conditions' => (
+					'where ezycount_users.id = ' . $id
+				),
+						'limit' => 1
+				)
 		);
-		$this->set ( 'user', $this->User->find ( 'first', $options ) );
+
+		$this->set ( 'user', $this->paginate ( 'User' ) );
 	}
 	public function add() {
 		if ($this->request->is ( 'post' )) {
@@ -201,15 +216,18 @@ class UsersController extends AppController {
 						'action' => 'index' 
 				) );
 			} else {
+				
 				$this->Session->setFlash ( __ ( 'The user could not be saved. Please, try again.' ) );
 			}
 		} else {
-			$options = array (
-					'conditions' => array (
-							'User.' . $this->User->primaryKey => $id 
+			$this->paginate = array (
+					'User' => array (
+							'conditions' => ('where ezycount_users.id = ' . $id),
+							'limit' => 1 
 					) 
 			);
-			$this->request->data = $this->User->find ( 'first', $options );
+			
+			$this->set ( 'User', $this->paginate ( 'User' ) );
 		}
 	}
 	public function delete($id = null) {

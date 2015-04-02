@@ -121,7 +121,8 @@
 						<td><?php echo h($user['ezycount_users']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['email']); ?>&nbsp;</td>
 						<td>
-<?php echo $this->Html->link($user['ezycount_companies']['canton'], array('controller' => 'companies', 'action' => 'view', $user['ezycount_companies']['user_id'])); ?>
+							<?php echo $this->Html->link($user['ezycount_companies']['canton'], 
+									array('controller' => 'companies', 'action' => 'view', $user['ezycount_companies']['user_id'])); ?>
 						</td>
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>

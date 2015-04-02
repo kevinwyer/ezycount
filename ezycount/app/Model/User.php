@@ -131,7 +131,6 @@ class User extends AppModel {
 		//check if there are conditions
 		if (! empty ( $conditions )){
 			$sql .= $conditions;
-			echo "<br/>" . $sql;
 		}
 		
 		// make the order by title aviable
