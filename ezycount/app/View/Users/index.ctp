@@ -50,6 +50,23 @@
 						 ?>
 						> OR
 					</td>
+					<td>
+						<select name="search_current_step">
+							<option value="" > </option>
+							<option value="0" >0: Test company created</option>
+							<option value="1" >1: create company - Step 1</option>
+							<option value="2" >2: create company - Step 2</option>
+							<option value="3" >3: create company - Step 3</option>
+							<option value="4" >4: create company - Step 4</option>
+							<option value="5" >5: create company - Step 5</option>
+							<option value="6" >6: create company - Step 6</option>
+							<option value="7" >7: Booking</option>
+							<option value="8" >8: Payment test</option>
+							<option value="9" >9: Payment successful</option>
+							
+						</select>
+					</td>
+					
 					<td><input type="submit" value="Submit"></td>
 				</tr>
 			</tbody>
