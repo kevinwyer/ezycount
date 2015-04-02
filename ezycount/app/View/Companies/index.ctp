@@ -77,7 +77,6 @@
 						<td>
 			<?php echo $this->Html->link($company['ezycount_users']['first_name'].' '.$company['ezycount_users']['last_name'], array('controller' => 'users', 'action' => 'view', $company['ezycount_users']['id'])); ?>
 						</td>
-
 						<td><?php echo h($company['ezycount_companies']['number']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['street']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['email']); ?>&nbsp;</td>
