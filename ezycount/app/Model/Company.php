@@ -225,8 +225,10 @@ class Company extends AppModel {
 	
 		// only use conditions if used 
 		// ex. where clause
-		if (! empty ( $conditions ))
+		if (! empty ( $conditions )){
 			$sql .= $conditions;
+			
+		}
 		
 		// only add the order clause if needed
 		if ($order != null) {
