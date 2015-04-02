@@ -5,7 +5,7 @@
 
 	<table>
 		<form id="searchFunction" method="post"
-			action="users">
+			action="/Git/ezycount/ezycount/users">
 			<tbody>
 				<tr>
 					(% for missing letters)
