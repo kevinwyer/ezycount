@@ -53,6 +53,17 @@
 						<th><?php echo $this->Paginator->sort('vat_registered'); ?></th>
 						<th><?php echo $this->Paginator->sort('expiration_date'); ?></th>
 						<th><?php echo $this->Paginator->sort('rounding_option'); ?></th>
+						<th><?php echo $this->Paginator->sort('last_connection'); ?></th>
+						<th><?php echo $this->Paginator->sort('number_of_days_of_activity'); ?></th>
+						<th><?php echo $this->Paginator->sort('booking_imports'); ?></th>
+						<th><?php echo $this->Paginator->sort('booking_multi'); ?></th>
+						<th><?php echo $this->Paginator->sort('booking_cash'); ?></th>
+						<th><?php echo $this->Paginator->sort('booking_simple'); ?></th>
+						<th><?php echo $this->Paginator->sort('number_of_users'); ?></th>
+						<th><?php echo $this->Paginator->sort('reminders'); ?></th>
+						<th><?php echo $this->Paginator->sort('invoice'); ?></th>
+						<th><?php echo $this->Paginator->sort('is_paid?'); ?></th>						
+						<th><?php echo $this->Paginator->sort('currencies'); ?></th>
 						<th class="actions">Actions</th>
 
 						<th class="actions"></th>
@@ -80,6 +91,17 @@
 						<td><?php echo h($company['ezycount_companies']['vat_registered']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['expiration_date']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['rounding_option']); ?>&nbsp;</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $company['ezycount_companies']['id']), array('escape' => false)); ?>
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $company['ezycount_companies']['id']), array('escape' => false)); ?>
