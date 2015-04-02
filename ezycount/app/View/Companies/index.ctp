@@ -176,10 +176,31 @@
 							<th>Number of results :</th>
 
 							<th><select name="select_value">
-									<option value="5">5</option>
-									<option value="10">10</option>
+									<option value="5"
+										<?php 
+ 											if($this->Session->check('session'))
+												echo $this->Session->read('session') == '5' ? ' selected="selected"' : '';
+										?>
+									>5</option>
+									
+									<option value="10"
+										<?php 
+ 											if($this->Session->check('session'))
+												echo $this->Session->read('session') == '10' ? ' selected="selected"' : '';
+										?>
+									>10</option>
+									
 									<option value="15">15</option>
+										<?php 
+ 											if($this->Session->check('session'))
+												echo $this->Session->read('session') == '15' ? ' selected="selected"' : '';
+										?>
+									
 									<option value="20">20</option>
+										<?php 
+ 											if($this->Session->check('session'))
+												echo $this->Session->read('session') == '20' ? ' selected="selected"' : '';
+										?>
 							</select></th>
 						</tr>
 
