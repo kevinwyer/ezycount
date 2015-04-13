@@ -6,7 +6,7 @@ class CitiesController extends AppController {
 			'Session' 
 	);
 	public function index() {
-		//loooooooooooooool
+		//loooooooogjhjhjoooooool
 		// check if the search function was used
 		if (isset ( $_POST ["search_city"] ) && isset ( $_POST ["search_plz"] )) {
 			
