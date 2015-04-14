@@ -1,13 +1,29 @@
 <?php
 App::uses ( 'AppModel', 'Model' );
 class User extends AppModel {
-	
 	var $name = 'User';
 	var $belongsTo = 'Company';
-	
 	public $displayField = 'title';
 	
 	private $selectAll = "SELECT * FROM ezycount_users LEFT JOIN ezycount_companies ON ezycount_companies.user_id = ezycount_users.id ";
+	
+	private $finalQuery = "SELECT u.id, u.last_name, u.first_name, 
+							MAX(case
+							when c.name LIKE '%test%' then '0'
+							when o.status = 'ok' then '8'
+            			    when o.status = '' then '7'
+       				        when c.current_step = '5' then '6'
+         			        when c.current_step = '4' then '5'
+         			        when c.current_step = '3' then '4'
+           				    when c.current_step = '2' then '3'
+           				    when c.current_step = '1' then '2'
+                			when c.current_step = '0' then '1'
+							else 'Rien'
+                			end) as 'Current'
+ 							FROM ezycount_users u 
+							LEFT OUTER JOIN ezycount_companies c ON c.user_id = u.id
+							LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
+							GROUP BY u.id";
 	
 	public $validate = array (
 			'id' => array (
@@ -70,25 +86,31 @@ class User extends AppModel {
 							'rule' => array (
 									'boolean' 
 							) 
-					// 'message' => 'Your custom message here',
-										) 
-			),
+					) 
+			)
+			// 'message' => 'Your custom message here',
+			
+			,
 			'is_admin' => array (
 					'required' => array (
 							'rule' => array (
 									'boolean' 
 							) 
-					// 'message' => 'Your custom message here',
-										) 
-			),
+					) 
+			)
+			// 'message' => 'Your custom message here',
+			
+			,
 			'created' => array (
 					'required' => array (
 							'rule' => array (
 									'notEmpty' 
 							) 
-					// 'message' => 'Your custom message here',
-										) 
-			),
+					) 
+			)
+			// 'message' => 'Your custom message here',
+			
+			,
 			'language' => array (
 					'required' => array (
 							'rule' => array (
@@ -102,17 +124,21 @@ class User extends AppModel {
 							'rule' => array (
 									'notEmpty' 
 							) 
-					// 'message' => 'Your custom message here',
-										) 
-			),
+					) 
+			)
+			// 'message' => 'Your custom message here',
+			
+			,
 			'didTour' => array (
 					'required' => array (
 							'rule' => array (
 									'notEmpty' 
 							) 
-					// 'message' => 'Your custom message here',
-										)
-			) 
+					) 
+			)
+			// 'message' => 'Your custom message here',
+			
+			 
 	);
 	
 	// custom paginator
@@ -128,8 +154,8 @@ class User extends AppModel {
 		
 		$sql .= $this->selectAll;
 		
-		//check if there are conditions
-		if (! empty ( $conditions )){
+		// check if there are conditions
+		if (! empty ( $conditions )) {
 			$sql .= $conditions;
 		}
 		
@@ -139,7 +165,7 @@ class User extends AppModel {
 			
 			// replace User.id with ezycount_users
 			// avoiding name conflict problems
-			$column = str_replace('User', 'ezycount_users', $key); 
+			$column = str_replace ( 'User', 'ezycount_users', $key );
 			
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
