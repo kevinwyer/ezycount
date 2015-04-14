@@ -127,6 +127,7 @@
 						<th><?php echo $this->Paginator->sort('country'); ?></th>
 						<th><?php echo $this->Paginator->sort('created'); ?></th>
 						<th><?php echo $this->Paginator->sort('language'); ?></th>
+						<th><?php echo $this->Paginator->sort('current'); ?></th>
 						<th class="actions">Actions</th>
 					</tr>
 				</thead>
@@ -144,6 +145,10 @@
 						<td><?php echo h($user['ezycount_users']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['ezycount_users']['language']); ?>&nbsp;</td>
+						<td>
+							<?php echo $this->Html->link($user['ezycount_companies']['current_step'], 
+									array('controller' => 'companies', 'action' => 'view', $user['ezycount_companies']['user_id'])); ?>
+						</td>
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['ezycount_users']['id']), array('escape' => false)); ?>
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-edit"></span>', array('action' => 'edit', $user['ezycount_users']['id']), array('escape' => false)); ?>
