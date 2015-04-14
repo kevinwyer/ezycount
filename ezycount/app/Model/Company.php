@@ -238,7 +238,7 @@ class Company extends AppModel {
 			// avoiding name conflict problems
 			$column = str_replace('Company', 'ezycount_companies', $key);
 			
-			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
+			$sql .= ' ORDER BY ' . $column . ' ' . $order [$key];
 		}
 	
 		// Adding LIMIT Clause

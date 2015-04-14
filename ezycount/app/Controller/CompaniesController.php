@@ -144,8 +144,11 @@ class CompaniesController extends AppController {
 		if ($this->Session->check ( 'search_company_email' ) || $this->Session->check ( 'search_company_name' )) {
 				
 			// prepare statement OR
+			// emails can be empty --> so replace the empty with some text ...
 			$conditionOR = ' where  ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '"' .
-							' OR ' . ' ezycount_companies.email LIKE "' . $this->Session->read ( 'search_company_email' ) . '"
+							' OR ' . 
+							' ezycount_companies.email LIKE "' . 
+								($this->Session->read ( 'search_company_email' ) == "" ? ' not empty ' : $this->Session->read ( 'search_company_email' ) ). '"
 							group by ezycount_companies.id 
 					';
 				
