@@ -87,7 +87,7 @@ class UsersController extends AppController {
 			// Display with session value
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by ezycount_users.id '),
+							'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit 
 					) 
 			);
@@ -95,7 +95,7 @@ class UsersController extends AppController {
 			// Display with default value
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by ezycount_users.id '),
+							'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit 
 					) 
 			);
@@ -116,7 +116,7 @@ class UsersController extends AppController {
 			
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by ezycount_users.id '),
+							'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit
 					)
 			);
@@ -127,9 +127,9 @@ class UsersController extends AppController {
 			
 			
 			// prepare statement OR
-			$conditionOR = ' where ( ezycount_users.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
-			' OR  ' . ' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' . 
-			' OR ' . ' ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  
+			$conditionOR = ' where ( u.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
+			' OR  ' . ' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' . 
+			' OR ' . ' u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  
 						';
 			
 			if ($this->Session->read ( 'search_name' ) != "" && $this->Session->read ( 'search_email' ) != "") {
@@ -138,11 +138,11 @@ class UsersController extends AppController {
 				// when email and firstname / lastname are search criterias
 				$conditionAND = 
 						($this->Session->read ( 'search_name' ) == "" ? '' : ' where 
-								( ezycount_users.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
+								( u.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
 								' OR  ' . 
-								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' )
+								' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' )
 										 . 
-						( $this->Session->read ( 'search_email' ) == "" ? '' : ' and ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  ')
+						( $this->Session->read ( 'search_email' ) == "" ? '' : ' and u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  ')
 						;
 			} else {
 				
@@ -150,10 +150,10 @@ class UsersController extends AppController {
 				// when either email or firstname / lastname are search criterias
 				$conditionAND = 
 						($this->Session->read ( 'search_name' ) == "" ? '' : ' where ( 
-								ezycount_users.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
+								u.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
 								' OR  ' . 
-								' ezycount_users.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )') . 
-						($this->Session->read ( 'search_email' ) == "" ? '' : ' where ezycount_users.email LIKE "' . $this->Session->read ( 'search_email' ) . '" ')
+								' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )') . 
+						($this->Session->read ( 'search_email' ) == "" ? '' : ' where u.email LIKE "' . $this->Session->read ( 'search_email' ) . '" ')
 						;
 			}
 			
@@ -161,7 +161,7 @@ class UsersController extends AppController {
 			$this->paginate = array (
 					'User' => array (
 							'conditions' => ($this->Session->read ( 'select_condition' ) == "AND" ? $conditionAND : $conditionOR)
-							. ' group by ezycount_users.id ',
+							. ' group by u.id ',
 							'limit' => $defaultLimit 
 					) 
 			);
@@ -179,7 +179,7 @@ class UsersController extends AppController {
 		$this->paginate = array (
 				'User' => array (
 						'conditions' => (
-					'where ezycount_users.id = ' . $id
+					'where u.id = ' . $id
 				),
 						'limit' => 1
 				)
@@ -227,7 +227,7 @@ class UsersController extends AppController {
 		} else {
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => ('where ezycount_users.id = ' . $id),
+							'conditions' => ('where u.id = ' . $id),
 							'limit' => 1 
 					) 
 			);
