@@ -22,6 +22,11 @@ class UsersController extends AppController {
 		if ($this->Session->check ( 'select_condition' ))
 			$this->Session->destroy ( 'select_condition' );
 			
+		// check if the dropdownlist was stored in the session
+		// if so -> delete it 
+		if ($this->Session->check ( 'search_current_step' ))
+			$this->Session->destroy ( 'search_current_step' );
+		
 			// reload the page
 		header ( "location:/Git/ezycount/ezycount/users" );
 		exit ();
@@ -52,10 +57,18 @@ class UsersController extends AppController {
 			if ($_POST ["search_condition"] != "")
 				$this->Session->write ( 'select_condition', $_POST ["search_condition"] );
 			
-			return true;
+			
 		}
 		
-		return false;
+		// only add the session variable if the dropdownlist has some changes
+		if (isset($_POST["search_current_step"])){
+			$valueDropdown = $_POST ["search_current_step"];
+			if ($valueDropdown == "")
+				$valueDropdown = 'empty';
+			$this->Session->write ( 'search_current_step', $valueDropdown );
+		}
+		
+	
 	}
 	public function index() {
 		$this->User->recursive = 0;
