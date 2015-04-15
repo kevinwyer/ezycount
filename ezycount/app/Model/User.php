@@ -162,7 +162,7 @@ class User extends AppModel {
 		// make the order by title aviable
 		if ($order != null) {
 			
-			
+			var_dump( $order );
 			
 			$key = array_keys ( $order )[0];
 			
