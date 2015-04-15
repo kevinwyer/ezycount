@@ -180,6 +180,76 @@ class CompaniesController extends AppController {
 		}
 		
 		$this->set('companies', $this->paginate('Company'));
+		
+		$id = 241;
+		
+		
+		//is paid?
+		$paid = $this->Company->query("SELECT DISTINCT orders.status FROM `ezycount_companies` as company, `ezycount_orders` as orders WHERE ".$id." = orders.company_id AND orders.status = 'ok'");
+		if (empty($paid)) {
+			$this->set('paid', "false");
+		}
+		else
+			$this->set('paid', "true");
+		
+//currencies
+// 		$currencies = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_currencies` as currencies WHERE ".$id." = currencies.company_id");
+
+// // 		empty column
+// // 		$invoice = $this->Company->query("");
+		
+// 		//reminders
+// 		$reminders = $this->Company->query("SELECT notifications.text FROM `ezycount_companies` as company, `ezycount_notifications` as notifications WHERE ".$id." = notifications.company_id");
+// 		$this->set('reminders',$reminders);
+		
+// 		//number of Users
+// 		$numberUser = $this->Company->query("SELECT company.name, COUNT(DISTINCT user_id) FROM `ezycount_companies` as company WHERE ".$id." = orders.company_id GROUP BY company.name");
+// 		$this->set('numberUser',$numberUser);
+		
+		// 		//bookings simple
+		// 		$simple = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'simple'");
+		// 		if (empty($simple)) {
+		// 			$this->set('simple', "false");
+		// 		}
+		// 		else
+			// 			$this->set('simple', "true");
+		
+		// 		//bookings cash
+		// 		$cash = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'cash'");
+		// 		if (empty($cash)) {
+		// 			$this->set('cash', "false");
+		// 		}
+		// 		else
+			// 			$this->set('cash', "true");
+		
+		// 		//bookings multi
+		// 		$multi = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'multi'");
+		// 		if (empty($multi)) {
+		// 			$this->set('multi', "false");
+		// 		}
+		// 		else
+			// 			$this->set('multi', "true");
+		
+		// 		//bookings import
+		// 		$imports = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'imports'");
+		// 		if (empty($imports)) {
+		// 			$this->set('imports', "false");
+		// 		}
+		// 		else
+			// 			$this->set('imports', "true");
+		
+		// 		//days of Activity
+		// 		$daysActivity = $this->Company->query("");
+		// 		$this->set('daysActivity', $daysActivity);
+		
+		//last connection
+		// 		$lastConnection = $this->Company->query("SELECT logs.user_id, MAX(logs.created) FROM `ezycount_logs` as logs WHERE ".$id." = logs.company_id");
+		// 		$this->set('lastConnection', $lastConnection);
+		
+		}
+		
+		public function testid($id){
+		
 	}
 
 
