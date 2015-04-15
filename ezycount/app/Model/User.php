@@ -161,11 +161,14 @@ class User extends AppModel {
 		
 		// make the order by title aviable
 		if ($order != null) {
+			
+			
+			
 			$key = array_keys ( $order )[0];
 			
 			// replace User.id with ezycount_users
 			// avoiding name conflict problems
-			$column = str_replace ( 'User', 'ezycount_users', $key );
+			$column = str_replace ( 'User', 'u', $key );
 			
 			$sql .= 'ORDER BY ' . $column . ' ' . $order [$key];
 		}
