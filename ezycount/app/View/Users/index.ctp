@@ -28,6 +28,9 @@
 					<!-- end body -->
 				</div>
 
+				<div class="panel panel-default">
+				<div class="panel-heading">Filters</div>
+				<div class="panel-body">
 				<!-- Search function -->
 
 				<table>
@@ -158,6 +161,8 @@
 			<!-- end actions -->
 		</div>
 		<!-- end col md 3 -->
+		</div>
+		</div>
 
 		<div class="col-md-9">
 			<table cellpadding="0" cellspacing="0" class="table table-striped">
