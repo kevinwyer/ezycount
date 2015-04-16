@@ -33,6 +33,12 @@ class UsersController extends AppController {
 	}
 	private function searchFieldsUsed() {
 		
+		// check if session containing a search select  --> default OR
+		if (! $this->Session->check ( 'select_condition' )) {
+			// default
+			$this->Session->write ( 'select_condition', 'OR' );
+		}
+		
 		// check if the search function was used
 		if (isset ( $_POST ["search_name"] ) && isset ( $_POST ["search_email"] )) {
 			
@@ -54,9 +60,10 @@ class UsersController extends AppController {
 			if ($_POST ["search_email"] != "")
 				$this->Session->write ( 'search_email', $_POST ["search_email"] );
 			
+			
+			// add search condition in the session (or / and)
 			if ($_POST ["search_condition"] != "")
 				$this->Session->write ( 'select_condition', $_POST ["search_condition"] );
-			
 			
 		}
 		
@@ -76,7 +83,11 @@ class UsersController extends AppController {
 		// We use this to paginate the page, and to fix a limit in the records we want
 		$defaultLimit = 10;
 		
-		// Check if we chose something from the dropdownlist
+		$conditionAND = "";
+		$conditionOR = "";
+		$conditionCurrentStep = "";
+		
+		// Check if we chose something from the limit dropdownlist
 		if (isset ( $_POST ["select_value"] )) {
 			
 
@@ -85,54 +96,19 @@ class UsersController extends AppController {
 			// Put the value in Session to use when the page refreshes
 			$this->Session->write ( 'session', $defaultLimit );
 			
-			// Display with the value sent by the dropdownlist
-			$this->paginate = array (
-					'User' => array (
-							'limit' => $defaultLimit
-					) 
-			);
 			// Check if there's something in the session
 		} else if ($this->Session->check ( 'session' )) {
 						
 			// Put the value as defaultLimit when the page refreshes
 			$defaultLimit = $this->Session->read ( 'session' );
-			
-			// Display with session value
-			$this->paginate = array (
-					'User' => array (
-							//'conditions' => (' group by u.id '),
-							'limit' => $defaultLimit 
-					) 
-			);
-		} else {
-			// Display with default value
-			$this->paginate = array (
-					'User' => array (
-							//'conditions' => (' group by u.id '),
-							'limit' => $defaultLimit 
-					) 
-			);
 		}
 		
 		$this->searchFieldsUsed ();
+
 		
-		// check if session containing a search select
-		if (! $this->Session->check ( 'select_condition' )) {
-			// default
-			$this->Session->write ( 'select_condition', 'OR' );
-		}
-		else{
-			// nothing stored in the session
-			// = first load of the page
-			// add group by clause
-			
-			
-			$this->paginate = array (
-					'User' => array (
-							//'conditions' => (' group by u.id '),
-							'limit' => $defaultLimit
-					)
-			);
+		// check dropdownlist (current step) is used to search
+		if ($this->Session->check ( 'search_current_step' )){
+			$conditionCurrentStep =  ' current = ' ."'" . $this->Session->read('search_current_step') ."'";
 		}
 		
 		// display result of search
@@ -142,8 +118,11 @@ class UsersController extends AppController {
 			// prepare statement OR
 			$conditionOR = ' where ( u.first_name LIKE "' . $this->Session->read ( 'search_name' ) . '"' . 
 			' OR  ' . ' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '")' . 
-			' OR ' . ' u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  
-						';
+			' OR ' . ' u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"'
+					
+			// add condition from current step dropdownlist (only when needed
+			 . ($this->Session->check ( 'search_current_step' ) ? ' OR ' . $conditionCurrentStep : '')
+			;
 			
 			if ($this->Session->read ( 'search_name' ) != "" && $this->Session->read ( 'search_email' ) != "") {
 				
@@ -155,7 +134,10 @@ class UsersController extends AppController {
 								' OR  ' . 
 								' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )' )
 										 . 
-						( $this->Session->read ( 'search_email' ) == "" ? '' : ' and u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  ')
+						( $this->Session->read ( 'search_email' ) == "" ? '' : ' AND u.email LIKE "' . $this->Session->read ( 'search_email' ) . '"  ')
+						
+						// add condition from current step dropdownlist (only when needed
+						. ($this->Session->check ( 'search_current_step' ) ? ' AND ' . $conditionCurrentStep : '')
 						;
 			} else {
 				
@@ -167,20 +149,30 @@ class UsersController extends AppController {
 								' OR  ' . 
 								' u.last_name LIKE "' . $this->Session->read ( 'search_name' ) . '" )') . 
 						($this->Session->read ( 'search_email' ) == "" ? '' : ' where u.email LIKE "' . $this->Session->read ( 'search_email' ) . '" ')
+						
+						// add condition from current step dropdownlist (only when needed
+						. ($this->Session->check ( 'search_current_step' ) ? ' AND ' . $conditionCurrentStep : '')
 						;
 			}
-			
-			// query the right information
-			$this->paginate = array (
-					'User' => array (
-							'conditions' => ($this->Session->read ( 'select_condition' ) == "AND" ? $conditionAND : $conditionOR),
-							//. ' group by u.id ',
-							'limit' => $defaultLimit 
-					) 
-			);
+
 		}
-		// display users
+		// no content in the search fields
+		// make dropdown (current step) functionality aviable
+		else{
+			$conditionOR = ($this->Session->check ( 'search_current_step' ) ? ' where ' . $conditionCurrentStep : '');
+			$conditionAND = ($this->Session->check ( 'search_current_step' ) ? ' where ' . $conditionCurrentStep : '');
+		}
 		
+		
+		// query the right information
+		$this->paginate = array (
+				'User' => array (
+						'conditions' => ($this->Session->read ( 'select_condition' ) == "AND" ? $conditionAND : $conditionOR),
+						'limit' => $defaultLimit
+				)
+		);
+		
+		// display users
 		$this->set ( 'users', $this->paginate ( 'User' ) );
 	}
 	public function view($id = null) {
@@ -197,7 +189,7 @@ class UsersController extends AppController {
 						'limit' => 1
 				)
 		);
-
+		
 		$this->set ( 'user', $this->paginate ( 'User' ) );
 	}
 	public function add() {
