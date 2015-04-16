@@ -52,17 +52,75 @@
 					</td>
 					<td>
 						<select name="search_current_step">
-							<option value="" > </option>
-							<option value="0" >0: Test company created</option>
-							<option value="1" >1: create company - Step 1</option>
-							<option value="2" >2: create company - Step 2</option>
-							<option value="3" >3: create company - Step 3</option>
-							<option value="4" >4: create company - Step 4</option>
-							<option value="5" >5: create company - Step 5</option>
-							<option value="6" >6: create company - Step 6</option>
-							<option value="7" >7: Booking</option>
-							<option value="8" >8: Payment test</option>
-							<option value="9" >9: Payment successful</option>
+							<option value="" 
+								<?php 
+ 										if($this->Session->check('search_current_step'))
+											echo $this->Session->read('search_current_step') == 'empty' ? ' selected="selected"' : '';
+										?>
+								> </option>
+										
+							<option value="0" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '0' ? ' selected="selected"' : '';
+								?>
+								>0: Test company created</option>
+								
+							<option value="1" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '1' ? ' selected="selected"' : '';
+								?>
+								>1: create company - Step 1</option>
+							
+							<option value="2" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '2' ? ' selected="selected"' : '';
+								?>
+								>2: create company - Step 2</option>
+							
+							<option value="3" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '3' ? ' selected="selected"' : '';
+								?>
+								>3: create company - Step 3</option>
+							
+							<option value="4" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '4' ? ' selected="selected"' : '';
+								?>
+								>4: create company - Step 4</option>
+							
+							<option value="5" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '5' ? ' selected="selected"' : '';
+								?>
+								>5: create company - Step 5</option>
+							
+							<option value="6" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '6' ? ' selected="selected"' : '';
+								?>
+								>6: create company - Step 6</option>
+							
+							<option value="7" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '7' ? ' selected="selected"' : '';
+								?>
+								>7: Payment test</option>
+							
+							<option value="8" 
+								<?php 
+ 									if($this->Session->check('search_current_step'))
+										echo $this->Session->read('search_current_step') == '8' ? ' selected="selected"' : '';
+								?>
+								>8: Payment successful</option>
 							
 						</select>
 					</td>
@@ -139,13 +197,13 @@
 						<td><?php echo h($user['u']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['email']); ?>&nbsp;</td>
 						<td>
-							<?php echo $this->Html->link($user['c']['canton'], 
-									array('controller' => 'companies', 'action' => 'view', $user['c']['user_id'])); ?>
+							<?php echo $this->Html->link($user['u']['canton'], 
+									array('controller' => 'companies', 'action' => 'view', $user['u']['company_id'])); ?>
 						</td>
 						<td><?php echo h($user['u']['country']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['language']); ?>&nbsp;</td>
-						<td><?php echo h($user[0]['current']); ?>&nbsp;</td>
+						<td><?php echo h($user['u']['current']); ?>&nbsp;</td>
 						
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['u']['id']), array('escape' => false)); ?>

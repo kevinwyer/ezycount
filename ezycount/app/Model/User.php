@@ -7,23 +7,59 @@ class User extends AppModel {
 	
 	//private $selectAll = "SELECT * FROM ezycount_users LEFT JOIN ezycount_companies ON ezycount_companies.user_id = ezycount_users.id ";
 	
-	private $selectAll = "SELECT u.*, c.*,
+// 	private $selectAllOld = "SELECT u.*, c.*,
+// 							MAX(case
+// 							when c.name LIKE '%test%' then '0'
+// 							when o.status = 'ok' then '8'
+//             			    when o.status = '' then '7'
+//        				        when c.current_step = '5' then '6'
+//          			        when c.current_step = '4' then '5'
+//          			        when c.current_step = '3' then '4'
+//            				    when c.current_step = '2' then '3'
+//            				    when c.current_step = '1' then '2'
+//                 			when c.current_step = '0' then '1'
+// 							else 'Empty'
+//                 			end) as current
+//  							FROM ezycount_users u 
+// 							LEFT OUTER JOIN ezycount_companies c ON c.user_id = u.id
+// 							LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
+// 							";
+	
+	private $selectAll = 
+			"select u.* from (		
+                    SELECT 	u.*, 
+                			c.name,
+   	 						c.canton, 
+    						c.country as 'company_country',
+    						c.id as 'company_id',
+							c.user_id,
+                
 							MAX(case
-							when c.name LIKE '%test%' then '0'
-							when o.status = 'ok' then '8'
-            			    when o.status = '' then '7'
-       				        when c.current_step = '5' then '6'
-         			        when c.current_step = '4' then '5'
-         			        when c.current_step = '3' then '4'
-           				    when c.current_step = '2' then '3'
-           				    when c.current_step = '1' then '2'
-                			when c.current_step = '0' then '1'
-							else 'Empty'
+							
+								when o.status = 'ok' then 8
+            			    	when o.status = '' then 7
+                                
+       				        	when c.current_step = 5 then 6
+         			        	when c.current_step = 4 then 5
+         			        	when c.current_step = 3 then 4
+           				    	when c.current_step = 2 then 3
+           				    	when c.current_step = 1 then 2
+                				when c.current_step = 0 then 1
+                                
+								else 
+                                	(case 
+                                	when c.name LIKE '%test%' then 0
+                                
+                                	else 'Empty'
+                                end )
+                                
                 			end) as current
- 							FROM ezycount_users u 
-							LEFT OUTER JOIN ezycount_companies c ON c.user_id = u.id
-							LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
-							";
+                            
+ 					FROM ezycount_users u 
+					LEFT OUTER JOIN ezycount_companies c ON c.user_id = u.id
+					LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
+                            
+                     group by u.id ) as u ";
 	
 	public $validate = array (
 			'id' => array (
@@ -161,8 +197,6 @@ class User extends AppModel {
 		
 		// make the order by title aviable
 		if ($order != null) {
-			
-			var_dump( $order );
 			
 			$key = array_keys ( $order )[0];
 			
