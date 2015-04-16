@@ -10,7 +10,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/ezycount/ezycount/users">Users</a></li>
+            <li><a href="/ezycount/ezycount/users">Users</a></li>
             <li><a href="/ezycount/ezycount/companies">Companies</a></li>
           </ul>
         </div><!--/.nav-collapse -->
