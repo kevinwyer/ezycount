@@ -139,13 +139,13 @@
 						<td><?php echo h($user['u']['last_name']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['email']); ?>&nbsp;</td>
 						<td>
-							<?php echo $this->Html->link($user['c']['canton'], 
-									array('controller' => 'companies', 'action' => 'view', $user['c']['user_id'])); ?>
+							<?php echo $this->Html->link($user['u']['canton'], 
+									array('controller' => 'companies', 'action' => 'view', $user['u']['company_id'])); ?>
 						</td>
-						<td><?php echo h($user['u']['country']); ?>&nbsp;</td>
+						<td><?php echo h($user['u']['company_country']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['created']); ?>&nbsp;</td>
 						<td><?php echo h($user['u']['language']); ?>&nbsp;</td>
-						<td><?php echo h($user[0]['current']); ?>&nbsp;</td>
+						<td><?php echo h($user['u']['current']); ?>&nbsp;</td>
 						
 						<td class="actions">
 							<?php echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', array('action' => 'view', $user['u']['id']), array('escape' => false)); ?>

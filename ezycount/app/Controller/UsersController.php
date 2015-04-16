@@ -100,7 +100,7 @@ class UsersController extends AppController {
 			// Display with session value
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by u.id '),
+							//'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit 
 					) 
 			);
@@ -108,7 +108,7 @@ class UsersController extends AppController {
 			// Display with default value
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by u.id '),
+							//'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit 
 					) 
 			);
@@ -129,7 +129,7 @@ class UsersController extends AppController {
 			
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => (' group by u.id '),
+							//'conditions' => (' group by u.id '),
 							'limit' => $defaultLimit
 					)
 			);
@@ -173,8 +173,8 @@ class UsersController extends AppController {
 			// query the right information
 			$this->paginate = array (
 					'User' => array (
-							'conditions' => ($this->Session->read ( 'select_condition' ) == "AND" ? $conditionAND : $conditionOR)
-							. ' group by u.id ',
+							'conditions' => ($this->Session->read ( 'select_condition' ) == "AND" ? $conditionAND : $conditionOR),
+							//. ' group by u.id ',
 							'limit' => $defaultLimit 
 					) 
 			);
