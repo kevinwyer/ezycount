@@ -11,4 +11,5 @@ endif;
 
 App::uses('Debugger', 'Utility');
 ?>
-
+<h1>EZYcount</h1>
+<img src="../Layouts/img/ezy_logo.png" />
