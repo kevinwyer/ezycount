@@ -29,139 +29,140 @@
 				</div>
 
 				<div class="panel panel-default">
-				<div class="panel-heading">Filters</div>
-				<div class="panel-body">
-				<!-- Search function -->
+					<div class="panel-heading">Filters</div>
+					<div class="panel-body">
+						<!-- Search function -->
 
-				<table>
-					<form id="searchFunction" method="post"
-						action="/Git/ezycount/ezycount/users">
-						<tbody>
-							<tr>
-								(% for missing letters)
-								<td><input name="search_name" placeholder="Firstname / Lastname"
-									<?php
-									
-									echo $this->Session->check ( 'search_name' ) ? 'value="' . $this->Session->read ( 'search_name' ) . '"' : 'value=""';
-									?> /></td>
+						<table>
+							<form id="searchFunction" method="post"
+								action="/Git/ezycount/ezycount/users">
+								<tbody>
+									<tr>
+										(% for missing letters)
+										<td><input name="search_name"
+											placeholder="Firstname / Lastname"
+											<?php
+											
+											echo $this->Session->check ( 'search_name' ) ? 'value="' . $this->Session->read ( 'search_name' ) . '"' : 'value=""';
+											?> /></td>
 
-							</tr>
-							<tr>
-								<td><input name="search_email" placeholder="E-Mail"
-									<?php
-									
-									echo $this->Session->check ( 'search_email' ) ? 'value="' . $this->Session->read ( 'search_email' ) . '"' : 'value=""';
-									?> /></td>
-							</tr>
-							<tr>
+									</tr>
+									<tr>
+										<td><input name="search_email" placeholder="E-Mail"
+											<?php
+											
+											echo $this->Session->check ( 'search_email' ) ? 'value="' . $this->Session->read ( 'search_email' ) . '"' : 'value=""';
+											?> /></td>
+									</tr>
+									<tr>
 
-								<td><input name="search_canton" placeholder="Canton" /></td>
-							</tr>
-							<tr>
-								<td><input name="search_language" placeholder="Language" /></td>
-							</tr>
-							<tr>
-								<td><input name="search_registrationDate"
-									placeholder="Registration date" /></td>
+										<td><input name="search_canton" placeholder="Canton" /></td>
+									</tr>
+									<tr>
+										<td><input name="search_language" placeholder="Language" /></td>
+									</tr>
+									<tr>
+										<td><input name="search_registrationDate"
+											placeholder="Registration date" /></td>
 
-							</tr>
+									</tr>
 
-							<tr>
-								<td><Input type='Radio' Name='search_condition' value='AND'
-									<?php
-									if ($this->Session->check ( 'select_condition' ))
-										echo $this->Session->read ( 'select_condition' ) == 'AND' ? 'checked="checked"' : '';
-									?>> AND</td>
-							</tr>
-							<tr>
-								<td><Input type='Radio' Name='search_condition' value='OR'
-									<?php
-									if ($this->Session->check ( 'select_condition' ))
-										echo $this->Session->read ( 'select_condition' ) == 'OR' ? 'checked="checked"' : '';
-									?>> OR</td>
-							</tr>
-							<td><select name="search_current_step">
-									<option value=""
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == 'empty' ? ' selected="selected"' : '';
-										?>></option>
+									<tr>
+										<td><Input type='Radio' Name='search_condition' value='AND'
+											<?php
+											if ($this->Session->check ( 'select_condition' ))
+												echo $this->Session->read ( 'select_condition' ) == 'AND' ? 'checked="checked"' : '';
+											?>> AND</td>
+									</tr>
+									<tr>
+										<td><Input type='Radio' Name='search_condition' value='OR'
+											<?php
+											if ($this->Session->check ( 'select_condition' ))
+												echo $this->Session->read ( 'select_condition' ) == 'OR' ? 'checked="checked"' : '';
+											?>> OR</td>
+									</tr>
+									<td><select name="search_current_step">
+											<option value=""
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == 'empty' ? ' selected="selected"' : '';
+												?>></option>
 
-									<option value="0"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '0' ? ' selected="selected"' : '';
-										?>>0: Test company created</option>
+											<option value="0"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '0' ? ' selected="selected"' : '';
+												?>>0: Test company created</option>
 
-									<option value="1"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '1' ? ' selected="selected"' : '';
-										?>>1: create company - Step 1</option>
+											<option value="1"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '1' ? ' selected="selected"' : '';
+												?>>1: create company - Step 1</option>
 
-									<option value="2"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '2' ? ' selected="selected"' : '';
-										?>>2: create company - Step 2</option>
+											<option value="2"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '2' ? ' selected="selected"' : '';
+												?>>2: create company - Step 2</option>
 
-									<option value="3"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '3' ? ' selected="selected"' : '';
-										?>>3: create company - Step 3</option>
+											<option value="3"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '3' ? ' selected="selected"' : '';
+												?>>3: create company - Step 3</option>
 
-									<option value="4"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '4' ? ' selected="selected"' : '';
-										?>>4: create company - Step 4</option>
+											<option value="4"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '4' ? ' selected="selected"' : '';
+												?>>4: create company - Step 4</option>
 
-									<option value="5"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '5' ? ' selected="selected"' : '';
-										?>>5: create company - Step 5</option>
+											<option value="5"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '5' ? ' selected="selected"' : '';
+												?>>5: create company - Step 5</option>
 
-									<option value="6"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '6' ? ' selected="selected"' : '';
-										?>>6: create company - Step 6</option>
+											<option value="6"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '6' ? ' selected="selected"' : '';
+												?>>6: create company - Step 6</option>
 
-									<option value="7"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '7' ? ' selected="selected"' : '';
-										?>>7: Payment test</option>
+											<option value="7"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '7' ? ' selected="selected"' : '';
+												?>>7: Payment test</option>
 
-									<option value="8"
-										<?php
-										if ($this->Session->check ( 'search_current_step' ))
-											echo $this->Session->read ( 'search_current_step' ) == '8' ? ' selected="selected"' : '';
-										?>>8: Payment successful</option>
+											<option value="8"
+												<?php
+												if ($this->Session->check ( 'search_current_step' ))
+													echo $this->Session->read ( 'search_current_step' ) == '8' ? ' selected="selected"' : '';
+												?>>8: Payment successful</option>
 
-							</select></td>
-							<tr>
-								<td><input type="submit" value="Submit"></td>
-							</tr>
-							</tr>
-						</tbody>
-					</form>
-				</table>
+									</select></td>
+									<tr>
+										<td><input type="submit" value="Submit"></td>
+									</tr>
+									</tr>
+								</tbody>
+							</form>
+						</table>
 
-				<!-- Reset the Session of the search -->
+						<!-- Reset the Session of the search -->
 
-				<form id="searchFunction" method="post"
-					action="/Git/ezycount/ezycount/users/deleteSession">
-					<input type="submit" value="Reset search">
-				</form>
-				<!-- end panel -->
+						<form id="searchFunction" method="post"
+							action="/Git/ezycount/ezycount/users/deleteSession">
+							<input type="submit" value="Reset search">
+						</form>
+						<!-- end panel -->
+					</div>
+					<!-- end actions -->
+				</div>
+				<!-- end col md 3 -->
 			</div>
-			<!-- end actions -->
-		</div>
-		<!-- end col md 3 -->
-		</div>
 		</div>
 
 		<div class="col-md-9">
