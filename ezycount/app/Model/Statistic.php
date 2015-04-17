@@ -15,21 +15,22 @@ class Statistic extends AppModel {
 			as totalCompanies ";
 	
 	private $selectLanguageUsers = 	
-			"( select
-					language,
-					count(*) as number
-				from ezycount_users
-				group by language)
-			as language ";
+			"select
+				language,
+				count(*) as number
+			from ezycount_users as user
+			group by language
+			 ";
 	
 	private $selectCantonCompany = 
 			"select 
-				canton, count(*) 
-			from ezycount_companies 
-			group by canton" ;
+				canton, count(*)  as number
+			from ezycount_companies as company
+			group by canton
+			 " ;
 	
 	private $selectStepsUser = 
-			"select current, count(1) 
+			"select current, count(1) as number
 			from (		
                     SELECT 
     						MAX(case
@@ -58,16 +59,27 @@ class Statistic extends AppModel {
 					LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
                             
                      group by u.id ) as currentStep
-        	group by current";
+        	group by current
+			";
+
 	
-	private $selectAll = "";
-	
-	private function prepareSQLStatement(){
+	private function getCorrectQuery($condition){
 		
-		return "select * from " .
-				$this->selectNumberOfUsers . ", " .
-				$this->selectNumberOfCompanies . ", " .
-				$this->selectLanguageUsers ;
+		switch ($condition){
+			case 'oneLine':
+				return "select * from " .
+						$this->selectNumberOfUsers . ", " .
+						$this->selectNumberOfCompanies ;
+				
+			case 'language':
+				return $this->selectLanguageUsers;
+			
+			case 'canton':
+				return $this->selectCantonCompany;
+				
+			case 'steps':
+				return  $this->selectStepsUser;
+		}
 	}
 	
 	// custom paginator
@@ -81,10 +93,8 @@ class Statistic extends AppModel {
 		$this->useTable = false;
 		$sql = '';
 	
-		$this->selectAll = $this->prepareSQLStatement();
 		
-		
-		$sql .= $this->selectAll;
+		$sql .= $this->getCorrectQuery($conditions);
 	
 		$results = $this->query ( $sql );
 		
@@ -95,10 +105,8 @@ class Statistic extends AppModel {
 		$sql = '';
 	
 		$this->recursive = $recursive;
-	
-		$this->selectAll = $this->prepareSQLStatement();
 		
-		$sql .= $this->selectAll;
+		$sql .= $this->getCorrectQuery($conditions);
 		
 		$results = $this->query ( $sql );
 	
