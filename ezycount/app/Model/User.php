@@ -5,26 +5,6 @@ class User extends AppModel {
 	var $belongsTo = 'Company';
 	public $displayField = 'title';
 	
-	//private $selectAll = "SELECT * FROM ezycount_users LEFT JOIN ezycount_companies ON ezycount_companies.user_id = ezycount_users.id ";
-	
-// 	private $selectAllOld = "SELECT u.*, c.*,
-// 							MAX(case
-// 							when c.name LIKE '%test%' then '0'
-// 							when o.status = 'ok' then '8'
-//             			    when o.status = '' then '7'
-//        				        when c.current_step = '5' then '6'
-//          			        when c.current_step = '4' then '5'
-//          			        when c.current_step = '3' then '4'
-//            				    when c.current_step = '2' then '3'
-//            				    when c.current_step = '1' then '2'
-//                 			when c.current_step = '0' then '1'
-// 							else 'Empty'
-//                 			end) as current
-//  							FROM ezycount_users u 
-// 							LEFT OUTER JOIN ezycount_companies c ON c.user_id = u.id
-// 							LEFT OUTER JOIN ezycount_orders o ON o.user_id = u.id
-// 							";
-	
 	private $selectAll = 
 			"select u.* from (		
                     SELECT 	u.*, 

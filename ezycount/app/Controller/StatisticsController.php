@@ -8,5 +8,11 @@ class StatisticsController extends AppController{
 	
 	public function index(){
 		
+		$this->paginate = array (
+				'Statistic' => array (
+						)
+		);
+		
+		$this->set ( 'statistics', $this->paginate ( 'Statistic' ) );
 	}
 }
