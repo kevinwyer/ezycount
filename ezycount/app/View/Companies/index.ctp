@@ -1,58 +1,5 @@
 <div class="companies index">
 
-
-	<!-- Search function -->
-	
-	<table>
-		<form id="searchFunction" method="post"
-				action="companies">
-			<tbody>
-				<tr>
-					(% for missing letters)
-					<td><input name="search_name" placeholder="Name"  
-							<?php echo $this->Session->check('search_company_name') ? 'value="' . $this->Session->read('search_company_name') .'"' : 'value=""'; 	
-							?>	/>
-					</td>
-
-					<td><input name="search_email" placeholder="E-Mail" 
-					<?php echo $this->Session->check('search_company_email') ? 'value="' . $this->Session->read('search_company_email') .'"' : 'value=""'; 	
-							?>
-					/></td>
-
-				</tr>
-				<tr>
-					<td>
-						<Input type = 'Radio' Name ='search_condition' value= 'AND'  
-						<?php 
-							 if($this->Session->check('select_company_condition'))
-							echo $this->Session->read('select_company_condition') == 'AND' ? 'checked="checked"' : '';
-						 ?>
-						> AND
-					</td>
-					<td>
-						<Input type = 'Radio' Name ='search_condition' value= 'OR'
-						<?php 
-							 if($this->Session->check('select_company_condition'))
-							echo $this->Session->read('select_company_condition') == 'OR' ? 'checked="checked"' : '';
-						 ?>
-						> OR
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="submit" value="Submit">
-					</td>
-				</tr>
-			</tbody>
-		</form>
-	</table>
-
-<!-- Reset the Session of the search -->
-
-	<form id="searchFunction" method="post"
-		action="/Git/ezycount/ezycount/companies/deleteSearchSession">
-		<input type="submit" value="Reset search">
-	</form>
 	
 <!-- Generated table -->
 
@@ -83,11 +30,75 @@
 					</div>
 					<!-- end body -->
 				</div>
+
+
+				<div class="panel panel-default">
+				<div class="panel-heading">Filters</div>
+				<div class="panel-body">
+				<!-- Search function -->
+	
+	<table>
+		<form id="searchFunction" method="post"
+				action="companies">
+			<tbody>
+				<tr>
+					(% for missing letters)
+					<td><input name="search_name" placeholder="Name"  
+							<?php echo $this->Session->check('search_company_name') ? 'value="' . $this->Session->read('search_company_name') .'"' : 'value=""'; 	
+							?>	/>
+					</td>
+</tr>
+<tr>
+					<td><input name="search_email" placeholder="E-Mail" 
+					<?php echo $this->Session->check('search_company_email') ? 'value="' . $this->Session->read('search_company_email') .'"' : 'value=""'; 	
+							?>
+					/></td>
+</tr>
+				</tr>
+				<tr>
+					<td>
+						<Input type = 'Radio' Name ='search_condition' value= 'AND'  
+						<?php 
+							 if($this->Session->check('select_company_condition'))
+							echo $this->Session->read('select_company_condition') == 'AND' ? 'checked="checked"' : '';
+						 ?>
+						> AND
+					</td>
+					</tr>
+					<tr>
+					<td>
+						<Input type = 'Radio' Name ='search_condition' value= 'OR'
+						<?php 
+							 if($this->Session->check('select_company_condition'))
+							echo $this->Session->read('select_company_condition') == 'OR' ? 'checked="checked"' : '';
+						 ?>
+						> OR
+					</td>
+
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" value="Submit">
+					</td>
+				</tr>
+			</tbody>
+		</form>
+	</table>
+
+<!-- Reset the Session of the search -->
+
+	<form id="searchFunction" method="post"
+		action="/Git/ezycount/ezycount/companies/deleteSearchSession">
+		<input type="submit" value="Reset search">
+	</form>
+
 				<!-- end panel -->
 			</div>
 			<!-- end actions -->
 		</div>
 		<!-- end col md 3 -->
+		</div>
+		</div>
 
 		<div class="col-md-9">
 			<table cellpadding="0" cellspacing="0" class="table table-striped">
