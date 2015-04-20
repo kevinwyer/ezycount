@@ -1,314 +1,278 @@
 <?php
-App::uses('AppController', 'Controller');
-
+App::uses ( 'AppController', 'Controller' );
 class CompaniesController extends AppController {
-	
 	var $name = 'Companies';
 	var $scaffold;
-
-	public $components = array('Paginator', 'Session');
-	
+	public $helpers = array (
+			'Company' 
+	);
+	public $uses = array (
+			'Company',
+			'Order' 
+	);
+	public $components = array (
+			'Paginator',
+			'Session' 
+	);
 	private $defaultLimit = 10;
-
-	public function deleteSearchSession(){
+	public function deleteSearchSession() {
 		// check if a name was stored in the session
 		// if existing remove it
 		if ($this->Session->check ( 'search_company_name' ))
 			$this->Session->destroy ( 'search_company_name' );
 			
-		// check if a mail was stored in the session
-		// if existing remove it
+			// check if a mail was stored in the session
+			// if existing remove it
 		if ($this->Session->check ( 'search_company_email' ))
 			$this->Session->destroy ( 'search_company_email' );
 			
-		// check if a radiobutton (and / or) was stored in the session
-		// if existing remove it
+			// check if a radiobutton (and / or) was stored in the session
+			// if existing remove it
 		if ($this->Session->check ( 'select_company_condition' ))
 			$this->Session->destroy ( 'select_company_condition' );
 			
-		// reload the page
+			// reload the page
 		header ( "location:/Git/ezycount/ezycount/companies" );
 		exit ();
 	}
-	
-	public function saveSearchOptionSession(){
+	public function saveSearchOptionSession() {
 		// stores the search criterias into the session
 		// true -> something was stored/searched
 		// false -> the search was not used
 		
 		// check if the search function was used
 		if (isset ( $_POST ["search_name"] ) && isset ( $_POST ["search_email"] )) {
-				
+			
 			// check if the search fields are NOT containing something
 			if ($_POST ["search_name"] == "")
 				$this->Session->destroy ( 'search_company_name' );
-			// nothing in the input fields
-				
+				// nothing in the input fields
+			
 			if ($_POST ["search_email"] == "") {
 				$this->Session->destroy ( 'search_company_email' );
 				// nothing in the input fields
 			}
-				
+			
 			// only add the session variable if a name was searched
 			if ($_POST ["search_name"] != "")
 				$this->Session->write ( 'search_company_name', $_POST ["search_name"] );
-		
-			// only add the session variable if a mail was searched
+				
+				// only add the session variable if a mail was searched
 			if ($_POST ["search_email"] != "")
 				$this->Session->write ( 'search_company_email', $_POST ["search_email"] );
-				
+			
 			if ($_POST ["search_condition"] != "")
 				$this->Session->write ( 'select_company_condition', $_POST ["search_condition"] );
 				
-			// something was stored/searched
+				// something was stored/searched
 			return true;
 		}
 		
 		// the search was not used
 		return false;
 	}
-	
-	public function nbrObjects(){
+	public function nbrObjects() {
 		// We use this to paginate the page, and to fix a limit in the records we want
 		
 		// Check if we chose something from the dropdownlist
 		if (isset ( $_POST ["select_value"] )) {
-		
-			 $this->defaultLimit = $_POST ["select_value"];
+			
+			$this->defaultLimit = $_POST ["select_value"];
 			
 			// Put the value in Session to use when the page refreshes
 			$this->Session->write ( 'session', $this->defaultLimit );
-		
+			
 			// Display with the value sent by the dropdownlist
 			$this->paginate = array (
 					'Company' => array (
-							'limit' => $this->defaultLimit
-					)
+							'limit' => $this->defaultLimit 
+					) 
 			);
 			// Check if there's something in the session
 		} else if ($this->Session->check ( 'session' )) {
-		
+			
 			// Put the value as defaultLimit when the page refreshes
-			$this->defaultLimit =  $this->Session->read ( 'session' );
-		
+			$this->defaultLimit = $this->Session->read ( 'session' );
+			
 			// Display with session value
 			$this->paginate = array (
 					'Company' => array (
-							'limit' => $this->defaultLimit
-					)
+							'limit' => $this->defaultLimit 
+					) 
 			);
-		
-		}
-		else {
+		} else {
 			// Display with default value
 			$this->paginate = array (
 					'Company' => array (
-							'limit' => $this->defaultLimit
-					)
+							'limit' => $this->defaultLimit 
+					) 
 			);
 		}
 	}
-	
-	
 	public function index() {
 		$this->Company->recursive = 0;
 		
 		// set the limit of displayed objects
-		$this->nbrObjects();
-		
+		$this->nbrObjects ();
 		
 		// check if session containing a search select ---> OR = default
 		if (! $this->Session->check ( 'select_company_condition' )) {
 			// default
 			$this->Session->write ( 'select_company_condition', 'OR' );
-		}
-		else{
+		} else {
 			// nothing stored in the session
 			// = first load of the page
 			// add group by clause
-				
-				
+			
 			$this->paginate = array (
 					'Company' => array (
 							'conditions' => ('group by ezycount_companies.id'),
-							'limit' => $this->defaultLimit
-					)
+							'limit' => $this->defaultLimit 
+					) 
 			);
 		}
 		
 		// check if search field are used, and store the information in the session
-		$this->saveSearchOptionSession();
+		$this->saveSearchOptionSession ();
 		
 		// delimit display according to search criterias
 		// check if email or name search field has some content
 		if ($this->Session->check ( 'search_company_email' ) || $this->Session->check ( 'search_company_name' )) {
-				
+			
 			// prepare statement OR
 			// emails can be empty --> so replace the empty with some text ...
-			$conditionOR = ' where  ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '"' .
-							' OR ' . 
-							' ezycount_companies.email LIKE "' . 
-								($this->Session->read ( 'search_company_email' ) == "" ? ' not empty ' : $this->Session->read ( 'search_company_email' ) ). '"
+			$conditionOR = ' where  ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '"' . ' OR ' . ' ezycount_companies.email LIKE "' . ($this->Session->read ( 'search_company_email' ) == "" ? ' not empty ' : $this->Session->read ( 'search_company_email' )) . '"
 							group by ezycount_companies.id 
 					';
-				
+			
 			if ($this->Session->read ( 'search_company_name' ) != "" && $this->Session->read ( 'search_company_email' ) != "") {
-		
+				
 				// prepare statement AND
 				// when email and name are search criterias
-				$conditionAND =
-					($this->Session->read ( 'search_company_name' ) == "" ? '' : ' where
-								 ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '" '  )
-						.
-					( $this->Session->read ( 'search_company_email' ) == "" ? '' : ' and ezycount_companies.email LIKE "' . $this->Session->read ( 'search_company_email' ) . '"  ')
-						. ' group by ezycount_companies.id ';
+				$conditionAND = ($this->Session->read ( 'search_company_name' ) == "" ? '' : ' where
+								 ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '" ') . ($this->Session->read ( 'search_company_email' ) == "" ? '' : ' and ezycount_companies.email LIKE "' . $this->Session->read ( 'search_company_email' ) . '"  ') . ' group by ezycount_companies.id ';
 			} else {
-		
+				
 				// prepare statement AND
 				// when either email or firstname / lastname are search criterias
-				$conditionAND =
-					($this->Session->read ( 'search_company_name' ) == "" ? '' : ' where 
-								ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '" ' ) .
-					($this->Session->read ( 'search_company_email' ) == "" ? '' : ' where ezycount_companies.email LIKE "' . $this->Session->read ( 'search_company_email' ) . '" ')
-						.' group by ezycount_users.id';
+				$conditionAND = ($this->Session->read ( 'search_company_name' ) == "" ? '' : ' where 
+								ezycount_companies.name LIKE "' . $this->Session->read ( 'search_company_name' ) . '" ') . ($this->Session->read ( 'search_company_email' ) == "" ? '' : ' where ezycount_companies.email LIKE "' . $this->Session->read ( 'search_company_email' ) . '" ') . ' group by ezycount_users.id';
 			}
-				
+			
 			// query the right information
 			$this->paginate = array (
 					'Company' => array (
 							'conditions' => ($this->Session->read ( 'select_company_condition' ) == "AND" ? $conditionAND : $conditionOR),
-							'limit' => $this->defaultLimit
-					)
+							'limit' => $this->defaultLimit 
+					) 
 			);
 		}
 		
-		$this->set('companies', $this->paginate('Company'));
-		
-		$id = 241;
-		
-		
-		//is paid?
-		$paid = $this->Company->query("SELECT DISTINCT orders.status FROM `ezycount_companies` as company, `ezycount_orders` as orders WHERE ".$id." = orders.company_id AND orders.status = 'ok'");
-		if (empty($paid)) {
-			$this->set('paid', "false");
-		}
-		else
-			$this->set('paid', "true");
-		
-//currencies
-// 		$currencies = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_currencies` as currencies WHERE ".$id." = currencies.company_id");
-
-// // 		empty column
-// // 		$invoice = $this->Company->query("");
-
-// 		//reminders
-// 		$reminders = $this->Company->query("SELECT notifications.text FROM `ezycount_companies` as company, `ezycount_notifications` as notifications WHERE ".$id." = notifications.company_id");
-// 		$this->set('reminders',$reminders);
-		
-// 		//number of Users
-// 		$numberUser = $this->Company->query("SELECT company.name, COUNT(DISTINCT user_id) FROM `ezycount_companies` as company WHERE ".$id." = orders.company_id GROUP BY company.name");
-// 		$this->set('numberUser',$numberUser);
-		
-// 		//bookings simple
-// 		$simple = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'simple'");
-// 		if (empty($simple)) {
-// 			$this->set('simple', "false");
-// 		}
-// 		else
-// 			$this->set('simple', "true");
-		
-// 		//bookings cash
-// 		$cash = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'cash'");
-// 		if (empty($cash)) {
-// 			$this->set('cash', "false");
-// 		}
-// 		else
-// 			$this->set('cash', "true");
-		
-		// 		//bookings multi
-		// 		$multi = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'multi'");
-		// 		if (empty($multi)) {
-		// 			$this->set('multi', "false");
-		// 		}
-		// 		else
-			// 			$this->set('multi', "true");
-		
-		// 		//bookings import
-		// 		$imports = $this->Company->query("SELECT DISTINCT * FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE ".$id." = bookings.company_id AND bookings.source = 'imports'");
-		// 		if (empty($imports)) {
-		// 			$this->set('imports', "false");
-		// 		}
-		// 		else
-			// 			$this->set('imports', "true");
-		
-		// 		//days of Activity
-		// 		$daysActivity = $this->Company->query("");
-		// 		$this->set('daysActivity', $daysActivity);
-		
-		//last connection
-		// 		$lastConnection = $this->Company->query("SELECT logs.user_id, MAX(logs.created) FROM `ezycount_logs` as logs WHERE ".$id." = logs.company_id");
-		// 		$this->set('lastConnection', $lastConnection);
-		
-		}
-		
-		public function testid($id){
-		
+		$this->set ( 'companies', $this->paginate ( 'Company' ) );
 	}
-
-
+	public function source($id, $source) {
+		// bookings import
+		$imports = $this->Company->query ( "SELECT source FROM `ezycount_companies` as company, `ezycount_bookings` as bookings WHERE " . $id . " = bookings.company_id AND bookings.source = '"  . $source ."'" );
+		if (empty ( $imports )) {
+ 			return "false";
+ 		} else
+ 			return "true";
+	}
+	public function number($id){
+		//number of Users
+		$number = $this->Company->query("SELECT COUNT(permissions.company_id) FROM `ezycount_permissions` as permissions WHERE " . $id . " = permissions.company_id");
+		if (empty ( $imports )) {
+ 			return "";
+ 		} else
+ 			return $number;
+	}
+	public function reminders($id){
+		//reminders
+		$currencies = $this->Company->query("SELECT notifications.id FROM `ezycount_notifications` as notifications, `ezycount_companies` as company WHERE " . $id . " = notifications.company_id");
+		if (empty ( $currencies )) {
+			return "false";
+		} else
+			return "true";
+	}
+	public function paid($id) {
+		// is paid?
+		$paid = $this->Company->query ( "SELECT DISTINCT orders.status FROM `ezycount_companies` as company, `ezycount_orders` as orders WHERE " . $id . " = orders.company_id AND orders.status = 'ok'" );
+		if (empty ( $paid )) {
+			return "false";
+		} else
+			return "true";
+	}
+	public function currencies($id){
+		//currencies
+		$currencies = $this->Company->query("SELECT currencies.id FROM `ezycount_currencies` as currencies, `ezycount_companies` as company WHERE " . $id . " = currencies.company_id");
+		if (empty ( $currencies )) {
+			return "false";
+		} else
+			return "true";
+	}
+	
 	public function view($id = null) {
-		if (!$this->Company->exists($id)) {
-			throw new NotFoundException(__('Invalid company'));
+		if (! $this->Company->exists ( $id )) {
+			throw new NotFoundException ( __ ( 'Invalid company' ) );
 		}
-		$options = array(
-				'conditions' => array(
-				'Company.' . $this->Company->primaryKey => $id));
-		$this->set('company', $this->Company->find('first', $options));
+		$options = array (
+				'conditions' => array (
+						'Company.' . $this->Company->primaryKey => $id 
+				) 
+		);
+		$this->set ( 'company', $this->Company->find ( 'first', $options ) );
 	}
-
-
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->Company->create();
-			if ($this->Company->save($this->request->data)) {
-				$this->Session->setFlash(__('The company has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+		if ($this->request->is ( 'post' )) {
+			$this->Company->create ();
+			if ($this->Company->save ( $this->request->data )) {
+				$this->Session->setFlash ( __ ( 'The company has been saved.' ) );
+				return $this->redirect ( array (
+						'action' => 'index' 
+				) );
 			} else {
-				$this->Session->setFlash(__('The company could not be saved. Please, try again.'));
+				$this->Session->setFlash ( __ ( 'The company could not be saved. Please, try again.' ) );
 			}
 		}
 	}
-
-	
 	public function edit($id = null) {
-		if (!$this->Company->exists($id)) {
-			throw new NotFoundException(__('Invalid company'));
+		if (! $this->Company->exists ( $id )) {
+			throw new NotFoundException ( __ ( 'Invalid company' ) );
 		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Company->save($this->request->data)) {
-				$this->Session->setFlash(__('The company has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+		if ($this->request->is ( array (
+				'post',
+				'put' 
+		) )) {
+			if ($this->Company->save ( $this->request->data )) {
+				$this->Session->setFlash ( __ ( 'The company has been saved.' ) );
+				return $this->redirect ( array (
+						'action' => 'index' 
+				) );
 			} else {
-				$this->Session->setFlash(__('The company could not be saved. Please, try again.'));
+				$this->Session->setFlash ( __ ( 'The company could not be saved. Please, try again.' ) );
 			}
 		} else {
-			$options = array('conditions' => array('Company.' . $this->Company->primaryKey => $id));
-			$this->request->data = $this->Company->find('first', $options);
+			$options = array (
+					'conditions' => array (
+							'Company.' . $this->Company->primaryKey => $id 
+					) 
+			);
+			$this->request->data = $this->Company->find ( 'first', $options );
 		}
 	}
-
-
 	public function delete($id = null) {
 		$this->Company->id = $id;
-		if (!$this->Company->exists()) {
-			throw new NotFoundException(__('Invalid company'));
+		if (! $this->Company->exists ()) {
+			throw new NotFoundException ( __ ( 'Invalid company' ) );
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Company->delete()) {
-			$this->Session->setFlash(__('The company has been deleted.'));
+		$this->request->allowMethod ( 'post', 'delete' );
+		if ($this->Company->delete ()) {
+			$this->Session->setFlash ( __ ( 'The company has been deleted.' ) );
 		} else {
-			$this->Session->setFlash(__('The company could not be deleted. Please, try again.'));
+			$this->Session->setFlash ( __ ( 'The company could not be deleted. Please, try again.' ) );
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect ( array (
+				'action' => 'index' 
+		) );
 	}
 }
