@@ -1,4 +1,5 @@
 <div class="statistics index">
+ <script src="https://www.google.com/jsapi"></script> 
 
 	<div class="row">
 		<div class="col-md-12">
@@ -14,7 +15,7 @@
 	<!-- display all the statistics in paragraphs -->
 	<!-- total users -->
 	<p>
-	Number of users: 
+	<b>Number of users:</b> 
 		<?php echo $oneLines[0]['totalUsers']['totalUsers'] ?>
 	</p>
 	
@@ -22,7 +23,7 @@
 	
 	<!-- languages -->
 	<p>
-	Languages:  <br/>
+	<b>Languages:</b>  <br/>
 		<?php 
 			$count = 0;
 			
@@ -36,15 +37,20 @@
 				$count += $language[0]['number'];
 			endforeach;
 			
-			echo 'total:  ' . $count;
+			echo 'TOTAL:  ' . $count;
 		?>
 	</p>
 	
+	<!-- Languages chart -->
+	<div id="chart_div"><?php $this->GoogleCharts->createJsChart($chart);?></div>
+
+	<img src="http://chart.apis.google.com/chart?cht=p3&chd=s:18,70,12
+&chs=250x100&chl=fr|en|de" />
 	
 	
 	<!-- cantons -->
-	<p>
-	Cantons: <br/>
+	<p><br><br>
+	<b>Cantons:</b> <br/>
 		<?php 
 		$count = 0;
 		
@@ -63,18 +69,21 @@
 	
 	</p>
 	
+	<img src="http://chart.apis.google.com/chart?cht=p3&chd=s:1
+&chs=250x100&chl=cantons" />
 	
 	<!-- steps -->
-	<p>
-	Steps: <br/>
+	<p><br><br>
+	<b>Steps:</b> <br/>
 		<?php 
 
 		foreach ($steps as $step):
 		
+			echo 'step ';
 			echo $step['currentStep']['current'];
-			echo '  ';
+			echo ': currently ';
 			echo $step[0]['number'];
-			echo '<br/>';
+			echo ' users <br/>';
 			
 		endforeach;
 		?>
