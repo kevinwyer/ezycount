@@ -47,10 +47,6 @@
 	<div id="chart_div">
 	<?php $this->GoogleCharts->createJsChart($chart);?>
 	</div>
-
-	<img src="http://chart.apis.google.com/chart?cht=p3&chd=s:18,70,12
-&chs=250x100&chl=fr|en|de" />
-	
 	
 	<!-- cantons -->
 	<p><br><br>
@@ -72,9 +68,6 @@
 		?>
 	
 	</p>
-	
-	<img src="http://chart.apis.google.com/chart?cht=p3&chd=s:1
-&chs=250x100&chl=cantons" />
 	
 	<!-- steps -->
 	<p><br><br>
