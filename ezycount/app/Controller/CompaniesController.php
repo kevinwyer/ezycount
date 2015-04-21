@@ -180,11 +180,11 @@ class CompaniesController extends AppController {
 	}
 	public function number($id){
 		//number of Users
-		$number = $this->Company->query("SELECT COUNT(permissions.company_id) FROM `ezycount_permissions` as permissions WHERE " . $id . " = permissions.company_id");
-		if (empty ( $imports )) {
+		$number = $this->Company->query("SELECT COUNT(permissions.company_id) as number FROM `ezycount_permissions` as permissions WHERE " . $id . " = permissions.company_id");
+		if (empty ( $number )) {
  			return "";
  		} else
- 			return $number;
+ 			return $number[0][0]['number'];
 	}
 	public function reminders($id){
 		//reminders
