@@ -5,12 +5,14 @@ App::uses ('GoogleCharts', 'GoogleCharts.Lib');
 class StatisticsController extends AppController{
 	
 	public $helpers = array('GoogleCharts.GoogleCharts');
+	
 	public $components = array (
 			'Paginator',
 			'Session'
 		);
 	
 	public function index(){
+		
 		
 		// display all 'one line query results'
 		$this->paginate = array (
@@ -26,7 +28,9 @@ class StatisticsController extends AppController{
 						'conditions' => ('language'),
 				)
 		);
-		$this->set ( 'languages', $this->paginate ( 'Statistic' ) );
+		
+		$languageArray = $this->paginate ( 'Statistic' );
+		$this->set ( 'languages',  $languageArray);
 		
 		
 		// display cantons where the companies are located
@@ -35,7 +39,8 @@ class StatisticsController extends AppController{
 						'conditions' => ('canton'),
 				)
 		);
-		$this->set ( 'cantons', $this->paginate ( 'Statistic' ) );
+		$cantonArray = $this->paginate ( 'Statistic' );
+		$this->set ( 'cantons',  $cantonArray);
 		
 		// display different steps of the user
 		$this->paginate = array (
@@ -46,79 +51,48 @@ class StatisticsController extends AppController{
 		$this->set ( 'steps', $this->paginate ( 'Statistic' ) );
 		
 		
+		// _________________________________________  Google Chart __________________________________
+		// source:
+		// https://github.com/scottharwell/googlecharts
 		
-		//Charts (TEST FROM HERE)
-		///////////////////////////////////////
-
-		//Get data from model
-		//Get the last 10 rounds for score graph
-/*		$rounds = $this->Round->find(
-				'all',
-				array(
-						'conditions' => array(
-								'Round.user_id' => $this->Auth->user('id')
-						),
-						'order' => array('Round.event_date' => 'ASC'),
-						'limit' => 10,
-						'fields' => array(
-								'Round.score',
-								'Round.event_date'
-						)
-				)
-		);
-*/		
 		//Setup data for chart
 		$chart = new GoogleCharts();
 		
-		$chart->type("LineChart");
+		$chart->type("PieChart");
+		
 		//Options array holds all options for Chart API
-		$chart->options(array('title' => "Recent Scores"));
+		$chart->options(array('title' => "Language"));
+		
 		$chart->columns(array(
 				//Each column key should correspond to a field in your data array
-				'event_date' => array(
+				'language' => array(
 						//Tells the chart what type of data this is
 						'type' => 'string',
 						//The chart label for this column
-						'label' => 'Date'
+						'label' => 'Language'
 				),
-				'score' => array(
+				'number' => array(
 						'type' => 'number',
-						'label' => 'Score',
-						//Optional NumberFormat pattern
-						'format' => '#,###'
+						'label' => 'Amount'
 				)
 		));
 		
-		//Loop through our data and creates data rows
-		//Data will be added to rows based on the column keys above (event_date, score).
-		//If there are missing fields in your data or the keys do not match, then this will not work.
-	/*	foreach($model as $round){
-			$chart->addRow($round['Round']);
+		foreach ($languageArray as $language){
+// 			var_dump($language);
+// 			echo '<br/>';
+			
+			$chart->addRow(array('language' => $language['user']['language'], 'number' => $language[0]['number']));
 		}
 		
-		//You can also use this way to loop through data and creates data rows:
-		foreach($rounds as $row){
-			//$chart->addRow(array('event_date' => $row['Model']['field1'], 'score' => $row['Model']['field2']));
-			$chart->addRow(array('event_date' => $row['Round']['event_date'], 'score' => $row['Round']['score']));
-		}
-		
-	*/	
-		//You can also manually add rows:
-		$chart->addRow(array('event_date' => '1/1/2012', 'score' => 55));
-		
+// 		$chart->addRow(array('language' => 'deutsch', 'number' => 55));
+// 		$chart->addRow(array('language' => 'französisch', 'number' => 50));
 		//Set the chart for your view
-		$this->set(compact('chart'));
-
+		$this->set(compact('chart')); //
+		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
+
+		
 	
 	/*
 	public function pie() {

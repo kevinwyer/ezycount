@@ -11,7 +11,9 @@
 
 		echo $this->Html->css('cake.generic');
 		
-    	echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'));
+    	//echo $this->Html->script(array('https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'));
+		echo '<script type="text/javascript" src="https://www.google.com/jsapi"></script>'
+
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -25,9 +27,10 @@
 
 			<?php echo $this->Session->flash(); ?>
 
-			<?php echo $this->fetch('script'); ?>
+			<?php // echo $this->fetch('script'); ?>
 
 			<?php echo $this->fetch('content'); ?>
+			<?php echo $this->fetch('js'); ?>
 							
 		</div>
 	</div>

@@ -26,7 +26,9 @@
 	<b>Languages:</b>  <br/>
 		<?php 
 			$count = 0;
-			
+		
+		echo '<br/>';
+		
 			foreach ($languages as $language):
 			
 				echo $language['user']['language'];   
@@ -42,7 +44,9 @@
 	</p>
 	
 	<!-- Languages chart -->
-	<div id="chart_div"><?php $this->GoogleCharts->createJsChart($chart);?></div>
+	<div id="chart_div">
+	<?php $this->GoogleCharts->createJsChart($chart);?>
+	</div>
 
 	<img src="http://chart.apis.google.com/chart?cht=p3&chd=s:18,70,12
 &chs=250x100&chl=fr|en|de" />
