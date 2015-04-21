@@ -5,11 +5,8 @@
  */
 class CompanyFixture extends CakeTestFixture {
 
-/**
- * Fields
- *
- * @var array
- */
+	public $useDbConfig = 'test';
+	
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'user_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'index', 'comment' => 'represent the user id of the creator'),
@@ -56,13 +53,13 @@ class CompanyFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'user_id' => 1,
-			'name' => 'Lorem ipsum dolor sit amet',
-			'number' => 'Lorem ipsum dolor sit amet',
-			'street' => 'Lorem ipsum dolor sit amet',
-			'zip' => 1,
-			'city' => 'Lorem ipsum dolor sit amet',
-			'country' => 'Lorem ipsum dolor sit amet',
-			'phone' => 'Lorem ipsum dolor sit amet',
+			'name' => 'TEST EZYCafé',
+			'number' => '1234',
+			'street' => 'rue ezy, 1',
+			'zip' => 3000,
+			'city' => 'Bern',
+			'country' => 'CH',
+			'phone' => '',
 			'email' => 'Lorem ipsum dolor sit amet',
 			'website' => 'Lorem ipsum dolor sit amet',
 			'type' => 'Lorem ipsum dolor sit amet',
@@ -82,7 +79,38 @@ class CompanyFixture extends CakeTestFixture {
 			'logo' => 'Lorem ipsum dolor sit amet',
 			'background_color' => 'Lore',
 			'disabled' => 1,
-			'canton' => 'Lorem ipsum dolor sit amet'
+			'canton' => 'BE'
+		),
+				array(
+			'id' => 2,
+			'user_id' => 2,
+			'name' => 'Fuhrer Cross',
+			'number' => 'jdkl',
+			'street' => '17 Laupenstrasse',
+			'zip' => 3270,
+			'city' => 'Aarberg',
+			'country' => 'CH',
+			'phone' => '',
+			'email' => 'Lorem ipsum dolor sit amet',
+			'website' => 'Lorem ipsum dolor sit amet',
+			'type' => 'Lorem ipsum dolor sit amet',
+			'first_accounting_year' => '2015-03-30',
+			'closing_date' => '2015-03-30',
+			'blocking_date' => '2015-03-30',
+			'currency' => 'Lor',
+			'vat_registered' => 1,
+			'vat_model' => 1,
+			'vat_both' => 1,
+			'vat_number' => 'Lorem ipsum dolor sit amet',
+			'starting_vat' => '2015-03-30',
+			'created' => '2015-03-30 14:22:56',
+			'expiration_date' => '2015-03-30',
+			'current_step' => 1,
+			'test' => 1,
+			'logo' => 'Lorem ipsum dolor sit amet',
+			'background_color' => 'Lore',
+			'disabled' => 1,
+			'canton' => 'AG'
 		),
 	);
 

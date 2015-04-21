@@ -1,6 +1,8 @@
 <div class="companies index">
 
 	
+
+	
 <!-- Generated table -->
 
 	<div class="row">
@@ -135,6 +137,7 @@
 				</thead>
 				<tbody>
 				<?php foreach ($companies as $company): ?>
+				
 					<tr>
 						<td><?php echo h($company['ezycount_companies']['id']); ?>&nbsp;</td>
 						<td><?php echo h($company['ezycount_companies']['name']); ?>&nbsp;</td>

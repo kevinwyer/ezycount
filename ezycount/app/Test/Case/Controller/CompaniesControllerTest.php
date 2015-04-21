@@ -7,12 +7,19 @@ class CompaniesControllerTest extends ControllerTestCase{
 	public $fixtures = array(
 			'app.company'
 	);
+	public $autoFixtures = true;
+	
+	private $Company;
 	
 	
 	// works like a constructor
 	// initalize all the variables
 	public function setUp(){
 		parent::setUp();
+		
+		$this->Company = ClassRegistry::init('Company');
+		$_POST = array();
+		
 	}
 	
 	public function testIndex(){
@@ -21,18 +28,38 @@ class CompaniesControllerTest extends ControllerTestCase{
 		debug($result);
 	}
 	
+	public function testSessionVariables(){
+		
+		$_POST = array(
+				'search_name' => '%test%',
+				'search_email' => '%mail%'
+		);
+		
+		$search_name = $this->testAction('/companies/saveSearchOptionSession');
+
+// 		debug($search_name);
+		debug($this->Session->read('search_name'));
+		
+		debug($this->controller->Session->read('search_name'));
+		debug($_POST);
+
+	}
+	
 	// -> this function destroyes the sessions (about search)
 	public function testDeleteSearchSession(){
 		// prepare filled session object
-		$Posts = $this->generate('Posts', array(
-				'components' => array(
-						'Session',
-						'search_company_name' => array('%test%'),
-						'search_company_email' => array('%mail%'),
-						'select_company_condition' => array('AND')
-				)
-		));
+		//$this->Posts->
 		
 		
 	}
+	
+	public function testSaveSearchOptionSession(){
+
+
+	}
+	
+	
+	
+	
+	
 }
