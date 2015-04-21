@@ -10,28 +10,16 @@
 		<!-- end col md 12 -->
 	</div>
 	<!-- end row -->
-
 	
+	<table>
+	<tr>
+	<td>
 	<!-- display all the statistics in paragraphs -->
 	<!-- total users -->
 	<p>
 	<b>Number of users:</b> 
 		<?php echo $oneLines[0]['totalUsers']['totalUsers'] ?>
 	</p>
-	
-	<!-- Languages chart -->
-	<div id="chart_div">
-	<?php $this->GoogleCharts->createJsChart($chart);?>
-	</div>
-	
-	<!-- cantons -->
-	<?php $cantonChart->div('chart_canton_div');?>
-	
-	<div id="chart_canton_div">
-	<?php $this->GoogleCharts->createJsChart($cantonChart);?>
-	</div>
-	
-	
 	<!-- steps -->
 	<p><br><br>
 	<b>Steps:</b> <br/>
@@ -49,5 +37,25 @@
 		?>
 	
 	</p>
+	</td>
+	<td>
+	<!-- cantons -->
+	<?php $cantonChart->div('chart_canton_div');?>
+	
+	<div id="chart_canton_div">
+	<?php $this->GoogleCharts->createJsChart($cantonChart);?>
+	</div>
+	</td>
+	<td>
+	<!-- Languages chart -->
+	<div id="chart_div">
+	<?php $this->GoogleCharts->createJsChart($chart);?>
+	</div>
+	
+	</td>
+	</tr>
+	</table>
+	
+	
 
 </div>
