@@ -33,7 +33,7 @@
 		?>
 	</p>	
 	<p>
-	<b>New user in this month:</b>
+	<b>New user this month:</b>
 		<?php echo $newUser[0][0]['numberUserMonth'] ?>
 	</p>
 	</tr>
