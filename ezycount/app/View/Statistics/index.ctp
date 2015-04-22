@@ -25,11 +25,17 @@
 		<?php echo $oneLines[0]['totalCompanies']['totalCompanies'] ?>
 	</p>
 	
+	<p>
 	<b>Number of users having paid:</b>
 		<?php  
 		echo round( $paid[1][0]['numberPaid'] / ($paid[0][0]['numberPaid'] +  $paid[1][0]['numberPaid']) * 100 , 2) ;
 		echo '%';
 		?>
+	</p>	
+	<p>
+	<b>New user in this month:</b>
+		<?php echo $newUser[0][0]['numberUserMonth'] ?>
+	</p>
 	</tr>
 	<tr>
 	<td>

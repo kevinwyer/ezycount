@@ -22,6 +22,17 @@ class StatisticsController extends AppController{
 		);
 		$this->set ( 'oneLines', $this->paginate ( 'Statistic' ) );
 		
+
+		// display all the new registered users in the current month
+		$this->paginate = array (
+				'Statistic' => array (
+						'conditions' => ('newUser'),
+				)
+		);
+		$this->set ( 'newUser', $this->paginate ( 'Statistic' ) );
+
+		
+		
 		// display languages with corresponding numbers
 		$this->paginate = array (
 				'Statistic' => array (

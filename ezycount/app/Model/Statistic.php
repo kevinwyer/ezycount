@@ -66,6 +66,10 @@ class Statistic extends AppModel {
 							FROM `ezycount_orders`
 							group by status ";
 	
+	private $selectNewUserMonthly = "SELECT count(*) as numberUserMonth 
+									FROM `ezycount_users`
+									where Month(`created`) = Month(Now())";
+	
 	private function getCorrectQuery($condition){
 		
 		switch ($condition){
@@ -84,6 +88,8 @@ class Statistic extends AppModel {
 				return  $this->selectStepsUser;
 			case 'paid':
 				return $this->selectPaid;
+			case 'newUser':
+				return $this->selectNewUserMonthly;
 		}
 	}
 	
