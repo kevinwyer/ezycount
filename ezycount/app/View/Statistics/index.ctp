@@ -21,6 +21,10 @@
 		<?php echo $oneLines[0]['totalUsers']['totalUsers'] ?>
 	</p>
 	
+	<b>Number of companies:</b> 
+		<?php echo $oneLines[0]['totalCompanies']['totalCompanies'] ?>
+	</p>
+	
 	<b>Number of users having paid:</b>
 		<?php  
 		echo round( $paid[1][0]['numberPaid'] / ($paid[0][0]['numberPaid'] +  $paid[1][0]['numberPaid']) * 100 , 2) ;
@@ -28,20 +32,12 @@
 		?>
 	
 	<!-- steps -->
-	<p><br>
-	<b>Steps:</b> <br/>
-		<?php 
-
-		foreach ($steps as $step):
-		
-			echo 'step ';
-			echo $step['currentStep']['current'];
-			echo ': currently ';
-			echo $step[0]['number'];
-			echo ' users <br/>';
-			
-		endforeach;
-		?>
+	<p>
+	<!-- Steps chart -->
+	<?php $stepsChart->div('chart_steps_div');?>
+	<div id="chart_steps_div">
+	<?php $this->GoogleCharts->createJsChart($stepsChart);?>
+	</div>
 	
 	</p>
 	</td>
@@ -59,6 +55,12 @@
 	<?php $this->GoogleCharts->createJsChart($chart);?>
 	</div>
 	
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+
 	</td>
 	</tr>
 	</table>

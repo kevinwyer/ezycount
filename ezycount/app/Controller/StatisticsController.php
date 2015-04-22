@@ -48,7 +48,8 @@ class StatisticsController extends AppController{
 						'conditions' => ('steps'),
 				)
 		);
-		$this->set ( 'steps', $this->paginate ( 'Statistic' ) );
+		$stepsArray = $this->paginate ( 'Statistic' );
+		$this->set ( 'steps', $stepsArray );
 		
 		// display the % of the paid people
 		$this->paginate = array (
@@ -128,6 +129,41 @@ class StatisticsController extends AppController{
 		
 		//Set the chart for your view
 		$this->set(compact('cantonChart'));
+		
+		
+		// *****************************
+		//            steps
+		// *****************************
+		//Setup data for chart
+		$stepsChart = new GoogleCharts();
+		
+		$stepsChart->type("BarChart");
+		
+		//Options array holds all options for Chart API
+		$stepsChart->options(array('title' => "Steps"));
+		
+		$stepsChart->columns(array(
+				//Each column key should correspond to a field in your data array
+				'step' => array(
+						//Tells the chart what type of data this is
+						'type' => 'string',
+						//The chart label for this column
+						'label' => 'Step'
+				),
+				'number' => array(
+						'type' => 'number',
+						'label' => 'Amount of users'
+				)
+		));
+		
+		foreach ($stepsArray as $steps){
+			$stepsChart->addRow(array('step' => 'Step '. $steps['currentStep']['current'], 'number' => $steps[0]['number']));
+		}
+		
+		//Set the chart for your view
+		$this->set(compact('stepsChart'));
+
+// 		var_dump($stepsArray);
 		
 	}
 }
