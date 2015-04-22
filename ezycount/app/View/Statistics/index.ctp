@@ -20,8 +20,15 @@
 	<b>Number of users:</b> 
 		<?php echo $oneLines[0]['totalUsers']['totalUsers'] ?>
 	</p>
+	
+	<b>Number of users having paid:</b>
+		<?php  
+		echo round( $paid[1][0]['numberPaid'] / ($paid[0][0]['numberPaid'] +  $paid[1][0]['numberPaid']) * 100 , 2) ;
+		echo '%';
+		?>
+	
 	<!-- steps -->
-	<p><br><br>
+	<p><br>
 	<b>Steps:</b> <br/>
 		<?php 
 

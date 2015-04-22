@@ -62,6 +62,9 @@ class Statistic extends AppModel {
         	group by current
 			";
 
+	private $selectPaid = " SELECT count(*) as numberPaid, status 
+							FROM `ezycount_orders`
+							group by status ";
 	
 	private function getCorrectQuery($condition){
 		
@@ -79,6 +82,8 @@ class Statistic extends AppModel {
 				
 			case 'steps':
 				return  $this->selectStepsUser;
+			case 'paid':
+				return $this->selectPaid;
 		}
 	}
 	

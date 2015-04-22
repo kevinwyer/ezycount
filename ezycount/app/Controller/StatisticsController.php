@@ -50,12 +50,20 @@ class StatisticsController extends AppController{
 		);
 		$this->set ( 'steps', $this->paginate ( 'Statistic' ) );
 		
+		// display the % of the paid people
+		$this->paginate = array (
+				'Statistic' => array (
+						'conditions' => ('paid'),
+				)
+		);
+		$this->set ( 'paid', $this->paginate ( 'Statistic' ) );
+		
 		
 		// _________________________________________  Google Chart __________________________________
 		// source:
 		// https://github.com/scottharwell/googlecharts
 		
-				// *****************************         
+		// *****************************         
 		//            Language 
 		// *****************************
 		
