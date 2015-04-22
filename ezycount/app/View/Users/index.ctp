@@ -54,18 +54,6 @@
 											echo $this->Session->check ( 'search_email' ) ? 'value="' . $this->Session->read ( 'search_email' ) . '"' : 'value=""';
 											?> /></td>
 									</tr>
-									<tr>
-
-										<td><input name="search_canton" placeholder="Canton" /></td>
-									</tr>
-									<tr>
-										<td><input name="search_language" placeholder="Language" /></td>
-									</tr>
-									<tr>
-										<td><input name="search_registrationDate"
-											placeholder="Registration date" /></td>
-
-									</tr>
 
 									<tr>
 										<td><Input type='Radio' Name='search_condition' value='AND'
