@@ -30,7 +30,9 @@
 		echo round( $paid[1][0]['numberPaid'] / ($paid[0][0]['numberPaid'] +  $paid[1][0]['numberPaid']) * 100 , 2) ;
 		echo '%';
 		?>
-	
+	</tr>
+	<tr>
+	<td>
 	<!-- steps -->
 	<p>
 	<!-- Steps chart -->
